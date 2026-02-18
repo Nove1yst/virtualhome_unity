@@ -647,7 +647,10 @@ namespace StoryGenerator.Utilities
             string className = dataProviders.ObjectSelectorProvider.GetClassName(prefabName);
 
             if (className == null)
+            {
+                // Debug.LogWarning($"'{prefabName}' is not registered in PrefabClass.json, will be ignored.");
                 return null;
+            }
 
             className = ScriptUtils.TransformClassName(className);
 
@@ -716,7 +719,12 @@ namespace StoryGenerator.Utilities
             GameObject gameObject = transform.gameObject;
             string prefabName = gameObject.name;
             string roomName = dataProviders.RoomSelector.ExtractRoomName(prefabName);
-            ObjectBounds bounds = new ObjectBounds(gameObject.GetComponent<RoomProperties.Properties_room>().bounds);
+            if (roomName == null)
+            {
+                roomName = prefabName; // custom room name if it is not a canonical room in VirtualHome
+            }
+            // ObjectBounds bounds = new ObjectBounds(gameObject.GetComponent<RoomProperties.Properties_room>().bounds);
+            ObjectBounds bounds = ObjectBounds.FromGameObject(gameObject);
 
             //GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             //sphere.transform.position = bounds.bounds.center - bounds.bounds.extents;
@@ -746,7 +754,10 @@ namespace StoryGenerator.Utilities
 
         private KDTree<float, EnvironmentObject> BuildKDTree(IEnumerable<EnvironmentObject> treeObjects)
         {
-            foreach (EnvironmentObject eo in treeObjects)
+            // 先转换为数组，避免多次枚举导致不一致
+            var treeObjectsArray = treeObjects.ToArray();
+            
+            foreach (EnvironmentObject eo in treeObjectsArray)
             {
                 if (eo.bounding_box == null)
                 {
@@ -754,10 +765,9 @@ namespace StoryGenerator.Utilities
                 }
             }
 
-            IEnumerable<float[]> centers = treeObjects.Select(o => o.bounding_box.center);
-            var centerArray = centers.ToArray();
+            var centerArray = treeObjectsArray.Select(o => o.bounding_box.center).ToArray();
 
-            var tree = new KDTree<float, EnvironmentObject>(3, centers.ToArray(), treeObjects.ToArray(), L2NormSquaredFloat);
+            var tree = new KDTree<float, EnvironmentObject>(3, centerArray, treeObjectsArray, L2NormSquaredFloat);
             return tree;
         }
 

@@ -341,14 +341,15 @@ namespace StoryGenerator
         // go: GameObject that is getting sit on
         // objToInteract: The target that this character must look at
         // targetObject: IK target of body
-        public IEnumerator Sit(GameObject go, GameObject objToInteract, GameObject targetObject, bool perform_animation = false)
+        public IEnumerator Sit(GameObject go, GameObject objToInteract, GameObject targetObject, bool perform_animation = false, bool skipTurn = false)
         {
             if (objToInteract == null || targetObject == null) {
                 Debug.LogError("Null objectToInteract or targetObject in Sit" + go.name);
                 yield break;
             }
 
-            yield return Turn(objToInteract.transform.position);
+            if (!skipTurn)
+                yield return Turn(objToInteract.transform.position);
             
             m_animator.SetBool(ANIM_STR_SIT, true);
             m_ikTargets.ActionSit(targetObject.transform);

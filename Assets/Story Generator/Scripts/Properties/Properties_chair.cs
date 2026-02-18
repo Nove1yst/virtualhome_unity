@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
@@ -466,6 +466,16 @@ namespace StoryGenerator.ChairProperties
                 }
             }
             return list_su_useable;
+        }
+
+        /// <summary>
+        /// Returns all SittableUnits regardless of physics accessibility/sittability.
+        /// Used in skip_animation mode where the character is teleported and NavMesh
+        /// checks are irrelevant.
+        /// </summary>
+        public List<SittableUnit> GetAllSittableUnits()
+        {
+            return m_list_su ?? new List<SittableUnit>();
         }
         #endregion
     }

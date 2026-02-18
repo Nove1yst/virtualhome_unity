@@ -63,7 +63,6 @@
         "Furnitures/Beds/Bed_2.prefab",
         "Furnitures/Beds/Bed_4.prefab",
         "Furnitures/Beds/Bed_5.prefab",
-        
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Beds/PRE_FUR_Bed_01/PRE_FUR_Bed_01_01_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Beds/PRE_FUR_Bed_01/PRE_FUR_Bed_01_01_02.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Beds/PRE_FUR_Bed_01/PRE_FUR_Bed_01_01_03.prefab",
@@ -94,7 +93,6 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Beds/PRE_FUR_Bed_01/PRE_FUR_Bed_01_06_03.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Beds/PRE_FUR_Bed_01/PRE_FUR_Bed_01_06_04.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Beds/PRE_FUR_Bed_01/PRE_FUR_Bed_01_06_05.prefab",
-        
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Beds/PRE_FUR_Bed_02/PRE_FUR_Bed_02_01_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Beds/PRE_FUR_Bed_02/PRE_FUR_Bed_02_01_02.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Beds/PRE_FUR_Bed_02/PRE_FUR_Bed_02_01_03.prefab",
@@ -188,10 +186,8 @@
         "Props/Books/Book_26.prefab",
         "Props/Books/Book_27.prefab",
         "Props/Books/Book_28.prefab",
-
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Books/PRE_PRO_Book_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Books/PRE_PRO_Book_02.prefab",
-
         "ModernHouseInteriorProps/Prefabs/Books/mH_BookSet1_Book1.prefab",
         "ModernHouseInteriorProps/Prefabs/Books/mH_BookSet1_Book6.prefab",
         "ModernHouseInteriorProps/Prefabs/Books/mH_BookSet1_Book7.prefab",
@@ -207,7 +203,6 @@
         "ModernHouseInteriorProps/Prefabs/Books/mH_BookSet04_ClosedBook02.prefab",
         "ModernHouseInteriorProps/Prefabs/Books/mH_BookSet04_ClosedBook03.prefab",
         "ModernHouseInteriorProps/Prefabs/Books/mH_BookSet04_ClosedBook04.prefab",
-
         "ModernHouseInteriorProps/Prefabs/Books/mH_BookSet04_OpenBook.prefab",
         "ModernHouseInteriorProps/Prefabs/Books/mH_OpenBook01.prefab",
         "ModernHouseInteriorProps/Prefabs/Books/mH_OpenBook02.prefab",
@@ -439,7 +434,7 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Clothes/PRE_PRO_Shirts/PRE_PRO_Shirt_05.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Clothes/PRE_PRO_Shirts/PRE_PRO_Shirt_06.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Clothes/PRE_PRO_Shirts/PRE_PRO_Shirt_07.prefab",
-        "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Clothes/PRE_PRO_Shirts/PRE_PRO_Shirt_08.prefab"        
+        "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Clothes/PRE_PRO_Shirts/PRE_PRO_Shirt_08.prefab"
     ],
     "coffee_pot": [
         "ExtraObjects/Coffee_pot_1/Coffee_pot_1a.prefab",
@@ -501,7 +496,6 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Cooking_pots/PRE_PRO_Cooking_pot_01_02.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Cooking_pots/PRE_PRO_Cooking_pot_02_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Cooking_pots/PRE_PRO_Cooking_pot_02_02.prefab"
-        
     ],
     "cpu_case": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Electronics/PRE_ELE_CPU_cases/PRE_ELE_CPU_case_01.prefab",
@@ -964,6 +958,9 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_tables/PRE_FUR_Kitchen_table_02_02.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_tables/PRE_FUR_Kitchen_table_02_03.prefab"
     ],
+    "laptop": [
+        "ExtraObjects/Laptop/laptop.prefab"
+    ],
     "knifeblock": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Knives/PRE_PRO_Knife_block_01.prefab"
     ],
@@ -977,7 +974,6 @@
     ],
     "lime": [
         "Complete_Home_Interior_Pack/NEKOBOLT_Demo_Packs/Farmers_Market_Gourmet_Pack_DEMO/FMGP_prefabs/FMGP_PRE_Lime_1024.prefab"
-
     ],
     "livingroom": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Rooms/PRE_ROO_Livingroom_01.prefab",
@@ -1472,7 +1468,6 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_01/PRE_FUR_Sofa_01_04_03.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_01/PRE_FUR_Sofa_01_04_04.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_01/PRE_FUR_Sofa_01_04_05.prefab",
-        
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_01_01_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_01_01_02.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_01_02_01.prefab",
@@ -1483,7 +1478,6 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_01_04_02.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_01_05_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_01_05_02.prefab",
-        
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_02_01_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_02_01_02.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_02_02_01.prefab",
@@ -1504,7 +1498,6 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_02_09_02.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_02_10_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_02_10_02.prefab",
-
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_03_01_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_03_01_02.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_03_02_01.prefab",
@@ -1513,7 +1506,6 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_03_03_02.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_03_04_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Sofas/PRE_FUR_Sofa_02/PRE_FUR_Sofa_02_03_04_02.prefab",
-
         "Furnitures/Sofas/Sofa_1.prefab",
         "Furnitures/Sofas/Sofa_2.prefab",
         "Furnitures/Sofas/Sofa_3.prefab",
@@ -1536,6 +1528,9 @@
         "ExtraObjects/Soccerball_1/Soccerball_1.prefab",
         "ExtraObjects/Soccerball_2/Soccerball_2.prefab",
         "ExtraObjects/Soccerball_3/Soccerball_3.prefab"
+    ],
+    "social_security_card": [
+        "ExtraObjects/Social_security_card/Social_security_card.prefab"
     ],
     "standing_mirror": [
         "ModernHouseInteriorProps/Prefabs/Misc/mH_StandingMirror.prefab",
@@ -1579,6 +1574,9 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Lamps/PRE_LAM_Table_lamps/PRE_LAM_Table_lamp_02_13.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Lamps/PRE_LAM_Table_lamps/PRE_LAM_Table_lamp_02_14.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Lamps/PRE_LAM_Table_lamps/PRE_LAM_Table_lamp_02_15.prefab"
+    ],
+    "tax_document": [
+        "ExtraObjects/Tax_document/Tax_document.prefab"
     ],
     "teddybear": [
         "ModernHouseInteriorProps/Prefabs/Decoration/teddyBear.prefab"

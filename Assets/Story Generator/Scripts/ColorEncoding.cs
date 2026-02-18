@@ -1,4 +1,4 @@
-﻿// #define DYNAMIC_COLOR_SPLIT
+﻿#define DYNAMIC_COLOR_SPLIT
 
 using StoryGenerator.Helpers;
 using System.Collections.Generic;

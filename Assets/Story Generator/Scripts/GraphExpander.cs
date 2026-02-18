@@ -559,18 +559,23 @@ namespace StoryGenerator.Utilities
             List<EnvironmentObject> objectsInRelation;
 
             if (edgeMap.TryGetValue(Tuple.Create(obj.id, ObjectRelation.ON), out objectsInRelation)) {
+                Debug.Log($"[DEBUG HandleCreateOn] {obj.class_name}.{obj.id}: found {objectsInRelation.Count} ON targets");
                 foreach (EnvironmentObject obj2 in objectsInRelation) {
                     EnvironmentObject sceneObj2;
 
                     if (alignment.TryGetValue(obj2.id, out sceneObj2)) {
+                        Debug.Log($"[DEBUG HandleCreateOn] Trying to place {obj.class_name}.{obj.id} ON {sceneObj2.class_name}.{sceneObj2.id} (prefab={sceneObj2.prefab_name}, hasBBox={sceneObj2.bounding_box != null})");
                         if (TryPlaceObject(obj, sceneObj2, false)) {
                             return true;
                         }
+                        Debug.Log($"[DEBUG HandleCreateOn] TryPlaceObject FAILED for {obj.class_name}.{obj.id} ON {sceneObj2.class_name}.{sceneObj2.id}");
                     } else {
+                        Debug.Log($"[DEBUG HandleCreateOn] Cannot find alignment for dest {obj2.class_name}.{obj2.id}");
                         expanderResult.AddItem(MISSING_DEST, obj2.class_name + "." + obj2.id.ToString());
-                        // Debug.Log($"Cannot find {obj2.class_name} to put {obj.class_name} on it");
                     }
                 }
+            } else {
+                Debug.Log($"[DEBUG HandleCreateOn] {obj.class_name}.{obj.id}: NO ON edges found");
             }
             return false;
         }
@@ -1008,6 +1013,8 @@ namespace StoryGenerator.Utilities
             List<string> names = dataProviders.NameEquivalenceProvider.GetEquivalentNames(srcClassName);
             int numPrefabsChecked = 0;
             
+            Debug.Log($"[DEBUG TryPlaceObject] srcClassName={srcClassName}, equivalentNames=[{string.Join(",", names)}], dest={dest.class_name}.{dest.id}, inside={inside}");
+
             if (Randomize) {
                 RandomUtils.Permute(names);
             }
@@ -1015,6 +1022,7 @@ namespace StoryGenerator.Utilities
                 List<string> fileNames;
 
                 if (TryGetAssets(name, out fileNames)) {
+                    Debug.Log($"[DEBUG TryPlaceObject] Found {fileNames.Count} assets for '{name}': [{string.Join(",", fileNames)}]");
                     GameObject newGo;
 
                     if (Randomize) {
@@ -1025,16 +1033,19 @@ namespace StoryGenerator.Utilities
 
                         numPrefabsChecked++;
                         if (PlaceObject(inside, srcClassName, fileName, dest, centerDelta, out newGo)) {
-                            // Debug.Log($"Put {srcClassName} to {dest.class_name}, inside: {inside}");
+                            Debug.Log($"[DEBUG TryPlaceObject] SUCCESS: placed {srcClassName} on {dest.class_name}");
                             return newGo;
                         }
                     }
+                } else {
+                    Debug.Log($"[DEBUG TryPlaceObject] TryGetAssets FAILED for name='{name}'");
                 }
             }
             if (numPrefabsChecked == 0) {
-                // Debug.Log($"Cannot find asset for {srcClassName}");
+                Debug.Log($"[DEBUG TryPlaceObject] MISSING PREFAB for {srcClassName}");
                 expanderResult.AddItem(MISSING_PREF, srcClassName);
             }
+            Debug.Log($"[DEBUG TryPlaceObject] FAILED to place {srcClassName}, checked {numPrefabsChecked} prefabs");
             return null;
         }
 
@@ -1049,17 +1060,25 @@ namespace StoryGenerator.Utilities
 
         private bool PlaceObject(bool inside, string className, string prefabFile, EnvironmentObject destObj, Vector3 centerDelta, out GameObject newGo)
         {
-            GameObject loadedObj = Resources.Load(ScriptUtils.TransformResourceFileName(prefabFile)) as GameObject;
+            string resourcePath = ScriptUtils.TransformResourceFileName(prefabFile);
+            GameObject loadedObj = Resources.Load(resourcePath) as GameObject;
             if (loadedObj == null)
             {
+                Debug.Log($"[DEBUG PlaceObject] FAILED: Resources.Load returned null for path='{resourcePath}' (prefabFile='{prefabFile}')");
                 newGo = null;
                 return false;
             }
-            if (GameObjectUtils.GetCollider(loadedObj) == null) {
-                // If there are no colliders on destination object
+            Collider col = GameObjectUtils.GetCollider(loadedObj);
+            if (col == null) {
+                Debug.Log($"[DEBUG PlaceObject] FAILED: No collider on loaded prefab '{className}'");
                 newGo = null;
                 return false;
             }
+            
+            Bounds srcBounds = GameObjectUtils.GetBounds(loadedObj);
+            Bounds destBounds = GameObjectUtils.GetBounds(destObj.transform.gameObject);
+            Debug.Log($"[DEBUG PlaceObject] className={className}, prefab={prefabFile}, loadedObj.pos={loadedObj.transform.position}, srcBounds.center={srcBounds.center}, srcBounds.size={srcBounds.size}, destBounds.center={destBounds.center}, destBounds.size={destBounds.size}, destBBox={destObj.bounding_box?.bounds.center}, inside={inside}, ignoreObstacles={IgnoreObstacles}");
+
             List<Vector3> positions = new List<Vector3>();
 
             try
@@ -1069,8 +1088,10 @@ namespace StoryGenerator.Utilities
             }
             catch (Exception e)
             {
+                Debug.Log($"[DEBUG PlaceObject] EXCEPTION: {e.Message}");
                 throw new ExpanderException(true, "Bounds of object " + destObj.class_name + " are not defined when placing " + className);
             }
+            Debug.Log($"[DEBUG PlaceObject] CalculatePutPositions returned {positions.Count} positions for '{className}' on '{destObj.class_name}'");
             if (positions.Count == 0) {
                 newGo = null;
                 return false;

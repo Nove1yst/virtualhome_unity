@@ -1,4 +1,4 @@
-﻿using StoryGenerator.Helpers;
+using StoryGenerator.Helpers;
 using StoryGenerator.Utilities;
 using StoryGenerator.RoomProperties;
 using System;

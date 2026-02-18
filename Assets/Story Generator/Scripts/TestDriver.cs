@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -112,8 +112,6 @@ namespace StoryGenerator
             }
 
             List<string> list_assets = dataProviders.AssetsProvider.GetAssetsPaths();
-
-
 
             // Check all the assets exist
             //foreach (string asset_name in list_assets)
@@ -712,6 +710,10 @@ namespace StoryGenerator
                         response.success = true;
                         var nma = characters[char_index].gameObject.GetComponent<NavMeshAgent>();
                         nma.Warp(position);
+                        if (config.has_rotation)
+                        {
+                            characters[char_index].transform.rotation = Quaternion.Euler(config.character_rotation);
+                        }
                     }
 
                 }
@@ -1107,13 +1109,41 @@ namespace StoryGenerator
                     sExecutors = new List<ScriptExecutor>();
                     CameraExpander.ResetCharacterCameras();
 
+                    bool buildNavMeshRealtime = true;
+
                     if (networkRequest.intParams?.Count > 0)
                     {
                         int environment = networkRequest.intParams[0];
 
                         PreviousEnvironment.IndexMemory = environment;
 
-                        if (environment >= 0 && environment < 50)
+                        if (environment == 50)
+                        {
+                            buildNavMeshRealtime = false;
+                            // Try to find the house transform if not assigned
+                            if (houseTransform == null)
+                            {
+                                GameObject homeObj = GameObject.Find("Home");
+                                if (homeObj == null) homeObj = GameObject.Find("House");
+                                if (homeObj == null) homeObj = GameObject.Find("GameObject"); // User's specific naming
+                                if (homeObj != null) houseTransform = homeObj.transform;
+                            }
+                            
+                            if (houseTransform != null)
+                            {
+                                response.success = true;
+                                response.message = "Using existing scene execution";
+                                Debug.Log("Using existing scene execution");
+                                ProcessHomeandCameras();
+                            }
+                            else
+                            {
+                                response.success = false;
+                                response.message = "Could not find 'Home', 'House', or 'GameObject' object in scene 50, and houseTransform is not assigned.";
+                                Debug.Log("Could not find 'Home', 'House', or 'GameObject' object in scene 50, and houseTransform is not assigned.");
+                            }
+                        }
+                        else if (environment >= 0 && environment < 50)
                         {   
                             GameObject _instance = Instantiate(prefab[environment], new Vector3(0, 0, 0), Quaternion.Euler(0f, 0f, 0f)) as GameObject;
                             houseTransform = _instance.transform;
@@ -1139,7 +1169,17 @@ namespace StoryGenerator
                     }
      
                     NavMeshSurface nm = GameObject.FindObjectOfType<NavMeshSurface>();
-                    nm.BuildNavMesh();
+                    if (nm != null)
+                    {
+                        if (buildNavMeshRealtime) {
+                            nm.BuildNavMesh();
+                            Debug.Log("NavMesh built.");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning("NavMeshSurface not found in the scene. Skipping BuildNavMesh.");
+                    }
 
                     // environment_graph
                     currentGraphCreator = new EnvironmentGraphCreator(dataProviders);
@@ -1204,7 +1244,7 @@ namespace StoryGenerator
                     CurrentStateList = new List<State>();
      
                     NavMeshSurface nm = GameObject.FindObjectOfType<NavMeshSurface>();
-                    nm.BuildNavMesh();
+                    if (nm != null) nm.BuildNavMesh();
 
                     houseTransform = GameObject.Find("Dungeon").transform;
 
@@ -1252,7 +1292,7 @@ namespace StoryGenerator
                     CurrentStateList = new List<State>();
      
                     NavMeshSurface nm = GameObject.FindObjectOfType<NavMeshSurface>();
-                    nm.BuildNavMesh();
+                    if (nm != null) nm.BuildNavMesh();
 
                     houseTransform = GameObject.Find("Dungeon").transform;
                     ProcessHomeandCameras();
@@ -1353,6 +1393,30 @@ namespace StoryGenerator
                         response.message = "";
                     }
 
+                }
+
+                else if (networkRequest.action == "load_scene")
+                {
+                    if (networkRequest.intParams != null && networkRequest.intParams.Count > 0)
+                    {
+                        int sceneIndex = networkRequest.intParams[0];
+                        // Map 50 to scene index 2 as per existing logic
+                        if (sceneIndex == 50) sceneIndex = 2;
+                        
+                        Debug.Log($"[TestDriver] Force loading scene index: {sceneIndex}");
+                        SceneManager.LoadScene(sceneIndex);
+                        
+                        // Wait one frame to ensure load command is registered
+                        // yield return null;
+                        
+                        response.success = true;
+                        response.message = $"Loaded scene {sceneIndex}";
+                    }
+                    else
+                    {
+                        response.success = false;
+                        response.message = "Missing scene index.";
+                    }
                 }
 
                 else if (networkRequest.action == "idle") 
@@ -1613,7 +1677,10 @@ namespace StoryGenerator
             List<GameObject> rooms = ScriptUtils.FindAllRooms(houseTransform);
 
             foreach (GameObject r in rooms) {
-                r.AddComponent<Properties_room>();
+                if (r.GetComponent<Properties_room>() == null)
+                {
+                    r.AddComponent<Properties_room>();
+                }
             }
         }
 
@@ -1720,6 +1787,7 @@ namespace StoryGenerator
                         if (rooms[i].name.Contains(room_name.Substring(1))) {
                             index = i;
                         }
+
                     }
                     destRoom = rooms[index].transform;
                 }
@@ -1919,6 +1987,8 @@ namespace StoryGenerator
         public int char_index = 0;
         public string character_resource = "Chars/Male1";
         public Vector3 character_position = new Vector3(0.0f, 0.0f, 0.0f);
+        public Vector3 character_rotation = new Vector3(0.0f, 0.0f, 0.0f);
+        public bool has_rotation = false;
         public string initial_room = "livingroom";
         public string mode = "random";
     }

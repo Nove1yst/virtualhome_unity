@@ -25,9 +25,15 @@ namespace StoryGenerator.RoomProperties
 			Regex regex = new Regex(PATTERN);
 			Match match = regex.Match(name);
 
-			Debug.Assert(match.Success, "Failed to extract room name from " + name);
-
-			return match.Groups[1].Value;
+			if (match.Success)
+			{
+				return match.Groups[1].Value;
+			}
+			else
+			{
+				// Debug.LogWarning("Failed to extract room name from " + name + ". Using object name as room name.");
+				return name;
+			}
 		}
 
 		Bounds CreateBounds()

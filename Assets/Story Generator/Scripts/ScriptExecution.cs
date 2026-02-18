@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -1946,6 +1946,12 @@ namespace StoryGenerator.Utilities
                 Vector3 pos;
 
                 List<ObjectData> gods = SelectObjects(a.Name, a.Selector, current).ToList();
+                Debug.Log($"[ProcessSit] SelectObjects for '{a.Name.Name}' (id={a.Name.Instance}) returned {gods.Count} objects. Selector: {a.Selector.GetType().Name}");
+                if (gods.Count == 0)
+                {
+                    report.AddItem("PROCESS SIT", $"SelectObjects returned empty for '{a.Name.Name}' (id={a.Name.Instance}). Selector type: {a.Selector.GetType().Name}. Check if ID exists in Unity internal graph.");
+                    return StateList.Empty;
+                }
                 GameObject go = gods[0].GameObject;
                 Vector3 goPos;
                 Vector3? intPos;
@@ -1962,7 +1968,15 @@ namespace StoryGenerator.Utilities
                 if (FindInteractionPoint(current.InteractionPosition, go, InteractionType.SIT, out pos, out tpos, intPos, 0.0f, a.Name.Instance))
                 {
                     sod = current.AddScriptGameObject(a.Name, go, goPos, pos);
-
+                }
+                else if (!this.smooth_walk)
+                {
+                    // skip_animation=True fallback: physics around chair is blocked (e.g., surrounded by
+                    // table/chairs), so CalculateInteractionPositions returns empty. Use the character's
+                    // current teleported position directly.
+                    Debug.LogWarning($"[ProcessSit] FindInteractionPoint failed for '{go.name}' (all surrounding positions blocked). Using character's current position as fallback.");
+                    pos = current.InteractionPosition;
+                    sod = current.AddScriptGameObject(a.Name, go, goPos, pos);
                 }
                 else
                 {
@@ -1970,23 +1984,16 @@ namespace StoryGenerator.Utilities
                     return StateList.Empty;
                 }
             }
-            if (IsInteractionPosition(current.InteractionPosition, sod, sod.Position, InteractionType.SIT, 0.5f))
+            if (IsInteractionPosition(current.InteractionPosition, sod, sod.Position, InteractionType.SIT, 0.5f)
+                || !this.smooth_walk)
             {
+                // In skip_animation mode (!smooth_walk) treat the character as already at position.
                 return ProcessSitAction(a, current);
             }
             else
             {
-                if (!this.smooth_walk)
-                {
-                    GotowardsAction ga = new GotowardsAction(a.ScriptLine, EmptySelector.Instance, a.Name.Name, a.Name.Instance, false, InteractionType.SIT);
-                    return CreateStateGroup(current, s => ProcessWalkTowardsAction(ga, s, 0, float.MaxValue, true, true), s => ProcessSitAction(a, s));
-                }
-                else
-                {
-                    GotoAction ga = new GotoAction(a.ScriptLine, EmptySelector.Instance, a.Name.Name, a.Name.Instance, false, InteractionType.SIT);
-                    return CreateStateGroup(current, s => ProcessWalkAction(ga, s, 0, float.MaxValue, true), s => ProcessSitAction(a, s));
-                }
-
+                GotoAction ga = new GotoAction(a.ScriptLine, EmptySelector.Instance, a.Name.Name, a.Name.Instance, false, InteractionType.SIT);
+                return CreateStateGroup(current, s => ProcessWalkAction(ga, s, 0, float.MaxValue, true), s => ProcessSitAction(a, s));
             }
         }
 
@@ -2041,25 +2048,57 @@ namespace StoryGenerator.Utilities
                                 //if (RandomizeExecution)
                                 RandomUtils.PermuteHead(suList, suList.Count);
                                 //suList.Skip(3);
-                                foreach (var su in suList)
+
+                                if (suList.Count == 0 && !this.smooth_walk)
                                 {
-                                    Transform pi = su.GetTsfm_positionInteraction();
-                                    float ipDist = (current.InteractionPosition - new Vector3(pi.position.x, 0, pi.position.z)).magnitude;
+                                    // skip_animation=True fallback: GetSittableUnits() returned empty
+                                    // because Physics.CheckBox marked all units as blocked (e.g., chairs
+                                    // surrounded by a conference table). Use GetAllSittableUnits() to
+                                    // bypass the accessibility check and get the real SittableUnit transforms.
+                                    List<Properties_chair.SittableUnit> allSu = pc.GetAllSittableUnits();
+                                    if (allSu.Count > 0)
+                                    {
+                                        Properties_chair.SittableUnit su = allSu[0];
+                                        Debug.LogWarning($"[ProcessSitAction] Using first SittableUnit (ignoring physics) on '{go1.name}' for skip_animation sit.");
+                                        State s = new State(current, a, current.InteractionPosition, ExecuteSit);
+                                        s.AddObject("CHARACTER_STATE", "SITTING");
+                                        s.AddGameObject("GOTO_SIT_LOOK_AT_OBJECT", su.GetTsfm_lookAtBody().gameObject);
+                                        s.AddGameObject("GOTO_SIT_TARGET", su.tsfm_group.gameObject);
+                                        yield return s;
+                                    }
+                                    else
+                                    {
+                                        // Truly no SittableAreas configured - use chair root as last resort.
+                                        Debug.LogWarning($"[ProcessSitAction] No SittableUnits at all on '{go1.name}'. Using chair root transform as last resort.");
+                                        State s = new State(current, a, current.InteractionPosition, ExecuteSit);
+                                        s.AddObject("CHARACTER_STATE", "SITTING");
+                                        s.AddGameObject("GOTO_SIT_LOOK_AT_OBJECT", go1);
+                                        s.AddGameObject("GOTO_SIT_TARGET", go1);
+                                        yield return s;
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (var su in suList)
+                                    {
+                                        Transform pi = su.GetTsfm_positionInteraction();
+                                        float ipDist = (current.InteractionPosition - new Vector3(pi.position.x, 0, pi.position.z)).magnitude;
 
-                                    Vector3 newIP = new Vector3(pi.position.x, 0, pi.position.z);
+                                        Vector3 newIP = new Vector3(pi.position.x, 0, pi.position.z);
 
-                                    State s = new State(current, a, newIP, ExecuteSit);
-                                    s.AddObject("CHARACTER_STATE", "SITTING");
+                                        State s = new State(current, a, newIP, ExecuteSit);
+                                        s.AddObject("CHARACTER_STATE", "SITTING");
 
-                                    if (ipDist < 0.0f /*|| ipDist > 0.5f*/)
-                                        continue;
+                                        if (ipDist < 0.0f /*|| ipDist > 0.5f*/)
+                                            continue;
 
-                                    lookAtGo = su.GetTsfm_lookAtBody().gameObject;
-                                    target = su.tsfm_group.gameObject;
+                                        lookAtGo = su.GetTsfm_lookAtBody().gameObject;
+                                        target = su.tsfm_group.gameObject;
 
-                                    s.AddGameObject("GOTO_SIT_LOOK_AT_OBJECT", lookAtGo);
-                                    s.AddGameObject("GOTO_SIT_TARGET", target);
-                                    yield return s;
+                                        s.AddGameObject("GOTO_SIT_LOOK_AT_OBJECT", lookAtGo);
+                                        s.AddGameObject("GOTO_SIT_TARGET", target);
+                                        yield return s;
+                                    }
                                 }
                             }
 
@@ -2840,7 +2879,6 @@ namespace StoryGenerator.Utilities
             recorder.MarkActionStart(InteractionType.SIT, s.Action.ScriptLine);
             SitAction wa = (SitAction)s.Action;
 
-
             GameObject lookAtGo = s.GetGameObject("GOTO_SIT_LOOK_AT_OBJECT");
             GameObject target = s.GetGameObject("GOTO_SIT_TARGET");
             bool perform_animation = true;
@@ -2848,8 +2886,43 @@ namespace StoryGenerator.Utilities
             {
                 perform_animation = false;
             }
+
+            // In skip_animation mode (!smooth_walk), place the character directly below the seat
+            // center (tsfm_group XZ, floor Y) so the IK pulls the body to the correct seat height
+            // without relying on root motion (which is unreliable at 150x speed).
+            // Facing: away from the chair GO center so the character sits correctly into the seat.
+            if (!this.smooth_walk && target != null)
+            {
+                // Seat center in world XZ; Y must be floor level so IK lifts body to seat height.
+                // Position_interaction.localPosition.y = -tsfm_group.position.y, so world Y = 0.
+                Vector3 seatCenter = target.transform.position;
+                float floorY = (target.transform.childCount > 0)
+                    ? target.transform.GetChild(0).position.y   // Position_interaction world Y ≈ 0
+                    : 0f;
+                characterControl.transform.position = new Vector3(seatCenter.x, floorY, seatCenter.z);
+
+                // Face direction: from chair pivot toward seat center (away from back-rest)
+                GameObject chairGo = s.GetScriptGameObject(wa.Name);
+                if (chairGo != null)
+                {
+                    Vector3 faceDir = seatCenter - chairGo.transform.position;
+                    faceDir.y = 0f;
+                    if (faceDir.sqrMagnitude > 0.0001f)
+                        characterControl.transform.rotation = Quaternion.LookRotation(faceDir.normalized);
+                }
+
+                Debug.Log($"[ExecuteSit] Placed at seat center XZ={seatCenter}, floorY={floorY}, " +
+                          $"facing={characterControl.transform.forward}");
+            }
+
+            if (!this.smooth_walk)
+            {
+                NavMeshAgent nma = characterControl.GetComponent<NavMeshAgent>();
+                if (nma != null) nma.enabled = false;
+            }
+
             yield return characterControl.StartCoroutine(characterControl.Sit(s.GetScriptGameObject(wa.Name),
-                lookAtGo, target, perform_animation));
+                lookAtGo, target, perform_animation, !this.smooth_walk));
         }
 
         private IEnumerator ExecuteStandup(State s)

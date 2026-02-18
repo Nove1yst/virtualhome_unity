@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89377a5c2dcb66b40af385ad8492cda9, type: 3}
   m_Name: Archetype
   m_EditorClassIdentifier: 
+  StraightenChance: 0
   TileSets:
   - {fileID: 11400000, guid: 3e7cc57c0a4564595adde31eec4b99d3, type: 2}
   - {fileID: 11400000, guid: 168270c022e4d4bd783fef4bb2f00231, type: 2}
   - {fileID: 11400000, guid: 8920a381b10e449df892eafc4a33a995, type: 2}
+  BranchStartTileSets: []
+  BranchStartType: 0
   BranchCapTileSets: []
   BranchCapType: 1
   BranchingDepth:
@@ -24,5 +27,12 @@ MonoBehaviour:
   BranchCount:
     Min: 0
     Max: 2
-  StraightenChance: 0
+  StraighteningSettings:
+    OverrideStraightenChance: 0
+    StraightenChance: 0
+    OverrideCanStraightenMainPath: 0
+    CanStraightenMainPath: 1
+    OverrideCanStraightenBranchPaths: 0
+    CanStraightenBranchPaths: 0
   Unique: 1
+  fileVersion: 1
