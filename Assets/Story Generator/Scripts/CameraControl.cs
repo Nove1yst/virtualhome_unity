@@ -1,4 +1,4 @@
-﻿using StoryGenerator.Scripts;
+using StoryGenerator.Scripts;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -467,13 +467,15 @@ namespace StoryGenerator.Utilities
 
             Camera cam = camera.GetComponent<ImageSynthesis>().m_captureCameras[camPassNo];
 
+            const int MSAA_SAMPLES = 8;
+
             RenderTexture renderRT;
             // Use different render texture for depth values.
             if (camPassNo == ImageSynthesis.PASS_NUM_DEPTH) {
                 // Half precision is good enough
-                renderRT = RenderTexture.GetTemporary(imageWidth, imageHeight, RT_DEPTH, RenderTextureFormat.ARGBHalf);
+                renderRT = RenderTexture.GetTemporary(imageWidth, imageHeight, RT_DEPTH, RenderTextureFormat.ARGBHalf, RenderTextureReadWrite.Default, MSAA_SAMPLES);
             } else {
-                renderRT = RenderTexture.GetTemporary(imageWidth, imageHeight, RT_DEPTH);
+                renderRT = RenderTexture.GetTemporary(imageWidth, imageHeight, RT_DEPTH, RenderTextureFormat.Default, RenderTextureReadWrite.Default, MSAA_SAMPLES);
             }
             RenderTexture prevCameraRT = cam.targetTexture;
 

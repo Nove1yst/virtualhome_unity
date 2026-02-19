@@ -1269,6 +1269,9 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Recliner/PRE_FUR_Recliner_01_02_04.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Recliner/PRE_FUR_Recliner_01_02_05.prefab"
     ],
+    "receipt": [
+        "ExtraObjects/Receipt/Receipt.prefab"
+    ],
     "remote_control": [
         "ExtraObjects/Remote_control_1/Remote_control_1.prefab",
         "ExtraObjects/Remote_control_2/Remote_control_2.prefab",

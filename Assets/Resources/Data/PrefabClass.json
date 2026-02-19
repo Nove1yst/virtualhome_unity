@@ -3197,6 +3197,12 @@
             ]
         },
         {
+            "className": "Receipt",
+            "prefabs": [
+                "Receipt"
+            ]
+        },
+        {
             "className": "Remote_control",
             "prefabs": [
                 "Remote_control_1",
