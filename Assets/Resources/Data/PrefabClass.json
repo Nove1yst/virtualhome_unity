@@ -1,6 +1,30 @@
 {
     "prefabClasses": [
         {
+            "className": "Address_book",
+            "prefabs": [
+                "Address_book"
+            ]
+        },
+        {
+            "className": "Personal_journal_political",
+            "prefabs": [
+                "Personal_journal_political"
+            ]
+        },
+        {
+            "className": "Personal_journal_religious",
+            "prefabs": [
+                "Personal_journal_religious"
+            ]
+        },
+        {
+            "className": "Written_note",
+            "prefabs": [
+                "Written_note"
+            ]
+        },
+        {
             "className": "Wall",
             "prefabs": [
                 "PRE_WAL_TIL_Straight_01_01",
@@ -2524,6 +2548,12 @@
             ]
         },
         {
+            "className": "Email",
+            "prefabs": [
+                "Email"
+            ]
+        },
+        {
             "className": "FaceCream",
             "prefabs": [
                 "PRE_PRO_Face_cream_01"
@@ -2880,6 +2910,18 @@
                 "Magazine_7n",
                 "Magazine_7o",
                 "Magazine_7p"
+            ]
+        },
+        {
+            "className": "Map",
+            "prefabs": [
+                "Map"
+            ]
+        },
+        {
+            "className": "Medical_file",
+            "prefabs": [
+                "Medical_file"
             ]
         },
         {

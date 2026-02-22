@@ -1,4 +1,7 @@
 {
+    "addressbook": [	
+        "ExtraObjects/Address_book/Address_book.prefab"
+    ],
     "alcohol": [
         "Food/Liquid/Alcohol_1.prefab",
         "Food/Liquid/Alcohol_2.prefab",
@@ -762,6 +765,9 @@
     "dustpan": [
         "ModernHouseInteriorProps/Prefabs/Kitchen/mH_Dustpan01.prefab"
     ],
+    "email": [
+        "ExtraObjects/Email/Email.prefab"
+    ],
     "facecream": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Face_cream_01.prefab"
     ],
@@ -1024,6 +1030,12 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Doors/PRE_DOO_Main_door_02_04.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Doors/PRE_DOO_Main_door_02_05.prefab"
     ],
+    "map": [
+        "ExtraObjects/Map/Map.prefab"
+    ],
+    "medical_file": [
+        "ExtraObjects/Medical_file/Medical_file.prefab"
+    ],
     "microwave": [
         "Appliances/Microwaves/Microwave_1.prefab",
         "Appliances/Microwaves/Microwave_2.prefab",
@@ -1169,6 +1181,12 @@
     ],
     "perfume": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Perfume_01.prefab"
+    ],
+    "personal_journal_political": [
+        "ExtraObjects/Personal_journal_political/Personal_journal_political.prefab"
+    ],
+    "personal_journal_religious": [
+        "ExtraObjects/Personal_journal_religious/Personal_journal_religious.prefab"
     ],
     "photoframe": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Photo_frame_01.prefab"
@@ -1755,5 +1773,8 @@
         "Props/WineGlasses/WineGlass_2.prefab",
         "Props/WineGlasses/WineGlass_3.prefab",
         "ModernHouseInteriorProps/Prefabs/Kitchen/Dishes/mH_WineGlass.prefab"
+    ],
+    "written_note": [
+        "ExtraObjects/Written_note/Written_note.prefab"
     ]
 }
