@@ -2887,38 +2887,47 @@ namespace StoryGenerator.Utilities
                 perform_animation = false;
             }
 
-            // In skip_animation mode (!smooth_walk), place the character directly below the seat
-            // center (tsfm_group XZ, floor Y) so the IK pulls the body to the correct seat height
-            // without relying on root motion (which is unreliable at 150x speed).
-            // Facing: away from the chair GO center so the character sits correctly into the seat.
+            // In skip_animation mode (!smooth_walk), disable NavMeshAgent and
+            // Rigidbody FIRST, then place the character at Position_interaction.
+            // If we set position while NavMeshAgent is still active, it will
+            // snap the character back to the nearest NavMesh surface causing
+            // a slight offset.  Rigidbody gravity can also pull the character
+            // downward between frames.
+            if (!this.smooth_walk)
+            {
+                NavMeshAgent nma = characterControl.GetComponent<NavMeshAgent>();
+                if (nma != null) nma.enabled = false;
+
+                Rigidbody rb = characterControl.GetComponent<Rigidbody>();
+                if (rb != null) rb.isKinematic = true;
+            }
+
             if (!this.smooth_walk && target != null)
             {
-                // Seat center in world XZ; Y must be floor level so IK lifts body to seat height.
-                // Position_interaction.localPosition.y = -tsfm_group.position.y, so world Y = 0.
-                Vector3 seatCenter = target.transform.position;
-                float floorY = (target.transform.childCount > 0)
-                    ? target.transform.GetChild(0).position.y   // Position_interaction world Y ≈ 0
-                    : 0f;
-                characterControl.transform.position = new Vector3(seatCenter.x, floorY, seatCenter.z);
+                Transform suGroup = target.transform;
 
-                // Face direction: from chair pivot toward seat center (away from back-rest)
+                // Place character at Position_interaction (standing spot in front of seat).
+                Vector3 charPos;
+                if (suGroup.childCount > 0)
+                    charPos = suGroup.GetChild(0).position;  // Position_interaction
+                else
+                    charPos = new Vector3(suGroup.position.x, 0f, suGroup.position.z);
+
+                characterControl.transform.position = charPos;
+
+                // Keep the existing facing logic: from chair pivot toward the seat
+                // edge so the character looks into the seat.
                 GameObject chairGo = s.GetScriptGameObject(wa.Name);
                 if (chairGo != null)
                 {
-                    Vector3 faceDir = seatCenter - chairGo.transform.position;
+                    Vector3 faceDir = suGroup.position - chairGo.transform.position;
                     faceDir.y = 0f;
                     if (faceDir.sqrMagnitude > 0.0001f)
                         characterControl.transform.rotation = Quaternion.LookRotation(faceDir.normalized);
                 }
 
-                Debug.Log($"[ExecuteSit] Placed at seat center XZ={seatCenter}, floorY={floorY}, " +
-                          $"facing={characterControl.transform.forward}");
-            }
-
-            if (!this.smooth_walk)
-            {
-                NavMeshAgent nma = characterControl.GetComponent<NavMeshAgent>();
-                if (nma != null) nma.enabled = false;
+                Debug.Log($"[ExecuteSit] skip_anim: char at Position_interaction={charPos}, " +
+                          $"suGroup={suGroup.position}, facing={characterControl.transform.forward}");
             }
 
             yield return characterControl.StartCoroutine(characterControl.Sit(s.GetScriptGameObject(wa.Name),

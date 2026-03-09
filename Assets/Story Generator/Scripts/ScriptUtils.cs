@@ -680,10 +680,13 @@ namespace StoryGenerator.Scripts
             {
                 return properties;
             }
-            else
+            // Fallback: strip underscores/spaces (e.g., "water_glass" -> "waterglass")
+            string transformed = ScriptUtils.TransformClassName(className);
+            if (transformed != className.ToLower() && namePropertiesMap.TryGetValue(transformed, out properties))
             {
-                return new List<string>();
+                return properties;
             }
+            return new List<string>();
         }
     }
 

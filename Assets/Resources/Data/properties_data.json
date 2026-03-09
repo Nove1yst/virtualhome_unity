@@ -148,7 +148,8 @@
         "CAN_OPEN",
         "CONTAINERS",
         "COVER_OBJECT",
-        "MOVABLE"
+        "MOVABLE",
+        "SURFACES"
     ],
     "broom": [
         "GRABBABLE",
@@ -1091,6 +1092,12 @@
         "GRABBABLE",
         "HAS_SWITCH",
         "HAS_PLUG",
+        "MOVABLE"
+    ],
+    "medicalfile": [
+        "GRABBABLE",
+        "READABLE",
+        "HAS_PAPER",
         "MOVABLE"
     ],
     "microwave": [

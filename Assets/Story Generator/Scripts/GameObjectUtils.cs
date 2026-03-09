@@ -1,4 +1,4 @@
-﻿using StoryGenerator.Scripts;
+using StoryGenerator.Scripts;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -210,12 +210,12 @@ namespace StoryGenerator.Utilities
             bool ignoreObstacles, Vector2? destPos = null, float yPos = -1)
         {
 
-            return CalculatePutPositions(intPos, GetBounds(go), go.transform.position, goDest, putInside, ignoreObstacles, destPos, yPos);
+            return CalculatePutPositions(intPos, GetBounds(go), go.transform.position, goDest, putInside, ignoreObstacles, destPos, yPos, go.name);
         }
 
         // Put object go to goDest, character is at interaction position
         public static List<Vector3> CalculatePutPositions(Vector3 intPos, Bounds srcBounds, Vector3 srcPos, GameObject goDest, 
-            bool putInside, bool ignoreObstacles, Vector2? destPos = null, float yPos = -1)
+            bool putInside, bool ignoreObstacles, Vector2? destPos = null, float yPos = -1, string srcName = "Unknown")
         {
 
             // "Optimal" distance from character to search for space (0.5 meters)
@@ -265,9 +265,43 @@ namespace StoryGenerator.Utilities
                 dir *= putCenterDistance;
             }
 
+            int failHitCount = 0, failBoxCount = 0;
+            string failHitReason = "", failBoxReason = "";
+
             Vector3 center = new Vector3(intPos.x + dir.x, 0, intPos.z + dir.z);
             // If position specified
             if (destPos == null)
+            {
+                // // First, forcefully test the exact center of the destination object, 
+                // // because the radial grid below might skip right over small destination boxes!
+                // float exactX = destBounds.center.x;
+                // float exactZ = destBounds.center.z;
+                // Vector3 exactDelta;
+                // if (putInside)
+                //     exactDelta = new Vector3(exactX - srcCenter.x, destMax.y - srcBounds.size.y - 0.03f - srcBounds.min.y, exactZ - srcCenter.z);
+                // else
+                //     exactDelta = new Vector3(exactX - srcCenter.x, destMax.y - srcBounds.min.y, exactZ - srcCenter.z);
+
+                // float exactHity;
+                // string exactHitFailStr;
+                // if (HitFlatSurface(srcBounds, exactDelta, goDest, out exactHity, out exactHitFailStr)) {
+                //     float yDelta = exactHity - (srcBounds.min.y + exactDelta.y);
+                //     Vector3 delta = exactDelta + new Vector3(0, yDelta, 0);
+                //     if (putInside || ignoreObstacles || !CheckBox(srcBounds, delta, 0.01f, goDest)) {
+                //         result.Add(srcPos + delta);
+                //         Debug.Log($"[Targeted] Exact center check SUCCESS! src: {srcName}, dest: {goDest.name}");
+                //         return result; // Early exit on perfect center hit
+                //     } else {
+                //         failBoxReason = "Obstacle at exact center.";
+                //         failBoxCount++;
+                //     }
+                // } else {
+                //     failHitReason = "Exact center failed: " + exactHitFailStr;
+                //     failHitCount++;
+                //     Debug.Log($"[Targeted Log] Exact center check failed for src: {srcName}, dest: {goDest.name}. Reason: {exactHitFailStr}");
+                // }
+
+                // Continue with original radial search for alternate positions
                 for (float r = min_center_distance; r <= putCenterDistance; r += 0.1f) {  // advance radii by 10 cm
                     for (int i = 0; i < 20; i++) {                      // angle quantization is 360/20 = 18 degrees
                         float phi = 2 * Mathf.PI * i / 20;
@@ -287,18 +321,32 @@ namespace StoryGenerator.Utilities
                         //    continue;
 
                         float hity;
+                        string hitFailStr;
 
-                        if (HitFlatSurface(srcBounds, srcDelta, goDest, out hity)) {
+                        // bool isInsideDestArea = (x >= destMin.x && x <= destMax.x && z >= destMin.z && z <= destMax.z);
+
+                        if (HitFlatSurface(srcBounds, srcDelta, goDest, out hity, out hitFailStr)) {
 
                             float yDelta = hity - (srcBounds.min.y + srcDelta.y);
                             Vector3 delta = srcDelta + new Vector3(0, yDelta, 0);
 
                             if (putInside || ignoreObstacles || !CheckBox(srcBounds, delta, 0.01f, goDest)) {
                                 result.Add(srcPos + delta);
+                            } else {
+                                failBoxReason = "Obstacle detected in CheckBox.";
+                                failBoxCount++;
+                                // if (isInsideDestArea) Debug.Log($"[Targeted] Over Box, but Checkbox failed. src: {srcName}, dest: {goDest.name}, dest size: {destBounds.size}");
                             }
+                        } else {
+                            failHitReason = hitFailStr;
+                            failHitCount++;
+                            // if (isInsideDestArea) {
+                            //     Debug.Log($"[Targeted Log] Point x:{x:F2}, z:{z:F2} is directly OVER the box. src: {srcName}, dest: {goDest.name}. BUT Raycast failed: {hitFailStr}");
+                            // }
                         }
                     }
                 }
+            }
             else
             {
                 // obtain x and z values from the destination
@@ -316,8 +364,9 @@ namespace StoryGenerator.Utilities
                     srcDelta = new Vector3(x - srcCenter.x, destMax.y - srcBounds.min.y, z - srcCenter.z);
 
                 float hity;
+                string hitFailStr;
 
-                if (HitFlatSurface(srcBounds, srcDelta, goDest, out hity))
+                if (HitFlatSurface(srcBounds, srcDelta, goDest, out hity, out hitFailStr))
                 {
 
                     float yDelta = hity - (srcBounds.min.y + srcDelta.y);
@@ -326,9 +375,20 @@ namespace StoryGenerator.Utilities
                     if (putInside || ignoreObstacles || !CheckBox(srcBounds, delta, 0.01f, goDest))
                     {
                         result.Add(srcPos + delta);
+                    } else {
+                        failBoxReason = "Obstacle detected in CheckBox.";
+                        failBoxCount++;
                     }
+                } else {
+                    failHitReason = hitFailStr;
+                    failHitCount++;
                 }
             }
+
+            if (result.Count == 0) {
+                Debug.Log($"[CalculatePutPositions] Failed to find put position for src: {srcName} on dest: {goDest.name}. {failHitCount} rejected by HitFlatSurface (Last reason: {failHitReason}). {failBoxCount} rejected by CheckBox (Last reason: {failBoxReason}). srcBounds size: {srcBounds.size}, destBounds size: {destBounds.size}");
+            }
+
             return result;
         }
 
@@ -336,8 +396,12 @@ namespace StoryGenerator.Utilities
         // hitHeight is y coordinate of hit points
         public static bool HitFlatSurface(Bounds goBounds, Vector3 goDelta, GameObject destGo, out float hitHeight)
         {
-            
+            string dummyReason;
+            return HitFlatSurface(goBounds, goDelta, destGo, out hitHeight, out dummyReason);
+        }
 
+        public static bool HitFlatSurface(Bounds goBounds, Vector3 goDelta, GameObject destGo, out float hitHeight, out string failReason)
+        {
             Bounds b = new Bounds(goBounds.center + goDelta + 0.02f * Vector3.up, goBounds.extents);
             
             Vector3 bMin = b.min;
@@ -345,32 +409,34 @@ namespace StoryGenerator.Utilities
 
             Transform hitTransform = null;
             hitHeight = 0;
+            failReason = "";
 
-            if (!CheckHitDown(bMin, ref hitTransform, ref hitHeight)) return false;
+            if (!CheckHitDown(bMin, ref hitTransform, ref hitHeight, out failReason)) { failReason = "Corner 1 (bMin) " + failReason; return false; }
 
-            if (!GameObjectUtils.IsInPath(destGo, hitTransform)) return false;
-            if (!CheckHitDown(new Vector3(bMin.x, bMin.y, bMax.z), ref hitTransform, ref hitHeight)) return false;
-            if (!CheckHitDown(new Vector3(bMax.x, bMin.y, bMin.z), ref hitTransform, ref hitHeight)) return false;
-            if (!CheckHitDown(new Vector3(bMax.x, bMin.y, bMax.z), ref hitTransform, ref hitHeight)) return false;
+            if (!GameObjectUtils.IsInPath(destGo, hitTransform)) { failReason = $"Hit object ({hitTransform?.name}) is not in path of destGo ({destGo.name})"; return false; }
+            if (!CheckHitDown(new Vector3(bMin.x, bMin.y, bMax.z), ref hitTransform, ref hitHeight, out failReason)) { failReason = "Corner 2 (bMin.x, bMax.z) " + failReason; return false; }
+            if (!CheckHitDown(new Vector3(bMax.x, bMin.y, bMin.z), ref hitTransform, ref hitHeight, out failReason)) { failReason = "Corner 3 (bMax.x, bMin.z) " + failReason; return false; }
+            if (!CheckHitDown(new Vector3(bMax.x, bMin.y, bMax.z), ref hitTransform, ref hitHeight, out failReason)) { failReason = "Corner 4 (bMax.x, bMax.z) " + failReason; return false; }
             return true;
         }
 
-        private static bool CheckHitDown(Vector3 p, ref Transform hitTransform, ref float yHit)
+        private static bool CheckHitDown(Vector3 p, ref Transform hitTransform, ref float yHit, out string failReason)
         {
             const float yTolerance = 0.01f;
 
             RaycastHit hit;
+            failReason = "";
 
-            if (!Physics.Raycast(p, Vector3.down, out hit)) return false;
+            if (!Physics.Raycast(p, Vector3.down, out hit)) { failReason = "Raycast missed."; return false; }
 
             if (hitTransform == null) {
                 hitTransform = hit.transform;
                 yHit = hit.point.y;
             } else {
-                if (hitTransform != hit.transform) return false;
+                if (hitTransform != hit.transform) { failReason = $"Hit different object ({hit.transform.name}) instead of {hitTransform.name}."; return false; }
             }
 
-            if (Mathf.Abs(hit.point.y - yHit) > yTolerance) return false;
+            if (Mathf.Abs(hit.point.y - yHit) > yTolerance) { failReason = $"Not flat: height diff is {Mathf.Abs(hit.point.y - yHit)} > {yTolerance}."; return false; }
 
             return true;
         }

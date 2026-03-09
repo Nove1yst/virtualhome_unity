@@ -1,4 +1,4 @@
-﻿using RootMotion.FinalIK;
+using RootMotion.FinalIK;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -879,7 +879,14 @@ namespace StoryGenerator.CharInteraction
             return arry_worldPos;
         }
         public void CreateInvisibleCpy(){
+          // Temporarily force m_skipAwake so the clone's Awake()
+          // does NOT call Initialize(). Without this, the clone
+          // would set isThisOriginal = true and misbehave during
+          // putback (trying to create another invisible copy).
+          bool prevSkipAwake = m_skipAwake;
+          m_skipAwake = true;
           invisibleCpy = Instantiate(gameObject) as GameObject;
+          m_skipAwake = prevSkipAwake;
 
           const int IDX_IO_WEIGHTCURVE_POSER_WEIGHT = 1;
           // Delete Mesh Renderer so that clone is not visible
@@ -988,55 +995,59 @@ namespace StoryGenerator.CharInteraction
 
                 m_tsfm_parent = transform.parent;
 
-                GameObject go_to_add_io_comp = gameObject;
-                if (objectToBePickedUp != null)
+                // Guard: only create InteractionObject and hand poses once
+                if (m_io_grab == null)
                 {
-                    go_to_add_io_comp = objectToBePickedUp.gameObject;
-                }
-
-                Vector3 handPoseParentWorldPos;
-
-                // Most of the cases, it's better to use the center of the GameObject
-                if (handPosition == Vector3.zero)
-                {
-                    Renderer rdr = go_to_add_io_comp.GetComponent<Renderer> ();
-                    if (rdr == null)
+                    GameObject go_to_add_io_comp = gameObject;
+                    if (objectToBePickedUp != null)
                     {
-                        handPoseParentWorldPos = go_to_add_io_comp.transform.position;
+                        go_to_add_io_comp = objectToBePickedUp.gameObject;
+                    }
+
+                    Vector3 handPoseParentWorldPos;
+
+                    // Most of the cases, it's better to use the center of the GameObject
+                    if (handPosition == Vector3.zero)
+                    {
+                        Renderer rdr = go_to_add_io_comp.GetComponent<Renderer> ();
+                        if (rdr == null)
+                        {
+                            handPoseParentWorldPos = go_to_add_io_comp.transform.position;
+                        }
+                        else
+                        {
+                            handPoseParentWorldPos = rdr.bounds.center;
+                        }
                     }
                     else
                     {
-                        handPoseParentWorldPos = rdr.bounds.center;
+                        handPoseParentWorldPos = go_to_add_io_comp.transform.TransformPoint(handPosition);
                     }
-                }
-                else
-                {
-                    handPoseParentWorldPos = go_to_add_io_comp.transform.TransformPoint(handPosition);
-                }
 
-                GameObject ioHolder = Resources.Load(PATH_TO_PICKUP_IO_HOLDER) as GameObject;
-                InteractionObject io_orig = ioHolder.GetComponent<InteractionObject> ();
-                m_io_grab = go_to_add_io_comp.AddComponent<InteractionObject> ();
-                CopyIO(io_orig, m_io_grab);
+                    GameObject ioHolder = Resources.Load(PATH_TO_PICKUP_IO_HOLDER) as GameObject;
+                    InteractionObject io_orig = ioHolder.GetComponent<InteractionObject> ();
+                    m_io_grab = go_to_add_io_comp.AddComponent<InteractionObject> ();
+                    CopyIO(io_orig, m_io_grab);
 
-                m_io_grab.events[0].messages[0].function = FUNC_NAME_ON_PICKUP;
-                m_io_grab.events[0].messages[0].recipient = gameObject;
+                    m_io_grab.events[0].messages[0].function = FUNC_NAME_ON_PICKUP;
+                    m_io_grab.events[0].messages[0].recipient = gameObject;
 
-                for (int i = 0; i < HAND_POSE_PATHS.Length; i++)
-                {
-                    GameObject prefab_handPose_left = Resources.Load( HAND_POSE_PATHS[i] +
-                        grabHandPose.ToString() + "Left") as GameObject;
-                    GameObject prefab_handPose_right = Resources.Load( HAND_POSE_PATHS[i] +
-                        grabHandPose.ToString() + "Right" ) as GameObject;
-                    GameObject go_handPose_left = Instantiate(prefab_handPose_left, handPoseParentWorldPos,
-                        Quaternion.identity, go_to_add_io_comp.transform) as GameObject;
-                    GameObject go_handPose_right = Instantiate(prefab_handPose_right, handPoseParentWorldPos,
-                        Quaternion.identity, go_to_add_io_comp.transform) as GameObject;
-                    // Adjust local scale so that hand pose is correct regardless of this GO's scale.
-                    go_handPose_left.transform.localScale = adjustedScale;
-                    go_handPose_right.transform.localScale = adjustedScale;
+                    for (int i = 0; i < HAND_POSE_PATHS.Length; i++)
+                    {
+                        GameObject prefab_handPose_left = Resources.Load( HAND_POSE_PATHS[i] +
+                            grabHandPose.ToString() + "Left") as GameObject;
+                        GameObject prefab_handPose_right = Resources.Load( HAND_POSE_PATHS[i] +
+                            grabHandPose.ToString() + "Right" ) as GameObject;
+                        GameObject go_handPose_left = Instantiate(prefab_handPose_left, handPoseParentWorldPos,
+                            Quaternion.identity, go_to_add_io_comp.transform) as GameObject;
+                        GameObject go_handPose_right = Instantiate(prefab_handPose_right, handPoseParentWorldPos,
+                            Quaternion.identity, go_to_add_io_comp.transform) as GameObject;
+                        // Adjust local scale so that hand pose is correct regardless of this GO's scale.
+                        go_handPose_left.transform.localScale = adjustedScale;
+                        go_handPose_right.transform.localScale = adjustedScale;
+                    }
+                    m_io_grab.Initiate();
                 }
-                m_io_grab.Initiate();
             }
 
             // Proceed only if this object is interact-able (has ActivationSwitch)
@@ -1157,7 +1168,8 @@ namespace StoryGenerator.CharInteraction
         {
             foreach(Collider c in arry_cs)
             {
-                c.enabled = ! c.enabled;
+                if (c != null)
+                    c.enabled = ! c.enabled;
             }
         }
 
@@ -1176,7 +1188,10 @@ namespace StoryGenerator.CharInteraction
                 // Set to null so that State_object will extract parent info instead.
                 charTsfm = null;
 
-                transform.parent = m_tsfm_parent;
+                if (m_tsfm_parent != null)
+                    transform.parent = m_tsfm_parent;
+                else
+                    transform.SetParent(null);
                 Transform tsfm = invisibleCpy.transform;
                 transform.position = tsfm.position;
                 transform.localRotation = tsfm.localRotation;

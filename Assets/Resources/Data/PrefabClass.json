@@ -2230,6 +2230,12 @@
             ]
         },
         {
+            "className": "Cupboard",
+            "prefabs": [
+                "Cupboard"
+            ]
+        },
+        {
             "className": "Cupcake",
             "prefabs": [
                 "Cupcake_1",
@@ -2428,7 +2434,8 @@
                 "PRE_FUR_CPU_table_01_02",
                 "PRE_FUR_CPU_table_01_03",
                 "PRE_FUR_CPU_table_01_04",
-                "PRE_FUR_CPU_table_01_05"
+                "PRE_FUR_CPU_table_01_05",
+                "Desk 1"
             ]
         },
         {
@@ -3091,7 +3098,7 @@
         {
             "className": "Pen",
             "prefabs": [
-                "mH_BookSet04_Pen"
+                "Pen"
             ]
         },
         {
@@ -3212,7 +3219,8 @@
             "className": "Printer",
             "prefabs": [
                 "Printer1",
-                "Printer2"
+                "Printer2",
+                "Laserjet Print"
             ]
         },
         {

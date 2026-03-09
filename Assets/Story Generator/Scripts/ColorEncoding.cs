@@ -1,4 +1,4 @@
-﻿#define DYNAMIC_COLOR_SPLIT
+#define DYNAMIC_COLOR_SPLIT
 
 using StoryGenerator.Helpers;
 using System.Collections.Generic;
@@ -131,7 +131,7 @@ namespace StoryGenerator.Recording
         {
             // Maximum number of objects that will be spawn on runtime since
             // current scene lacks them while the script to be executed needs them.
-            const int NUM_TO_BE_SPAWNED_RUNTIME = 40;
+            const int NUM_TO_BE_SPAWNED_RUNTIME = 200;
 #if (DYNAMIC_COLOR_SPLIT)
       List<GameObjectSgmtInfo> list_gsi = new List<GameObjectSgmtInfo>();
       Dictionary<string, int> goGroupID_Map = new Dictionary<string, int> ();

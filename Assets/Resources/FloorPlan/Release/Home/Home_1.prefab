@@ -78,7 +78,6 @@ MonoBehaviour:
   object2: {fileID: 0}
   maxDepenetrationVelocity: 0.1
   time: 10000
-  _preload: {fileID: 0}
 --- !u!114 &608772735598765418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +328,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CastShadows
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338799477852087398, guid: 15fcf9fcc3fa148a78e2a6ec0dbb745c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338799477852087398, guid: 15fcf9fcc3fa148a78e2a6ec0dbb745c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.823
       objectReference: {fileID: 0}
     - target: {fileID: 5338799478709555949, guid: 15fcf9fcc3fa148a78e2a6ec0dbb745c,
         type: 3}

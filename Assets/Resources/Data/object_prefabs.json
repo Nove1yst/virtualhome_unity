@@ -1,5 +1,5 @@
 {
-    "addressbook": [	
+    "addressbook": [
         "ExtraObjects/Address_book/Address_book.prefab"
     ],
     "alcohol": [
@@ -558,6 +558,9 @@
         "Complete_Home_Interior_Pack/NEKOBOLT_Demo_Packs/Dessert_Heaven_Pack_DEMO/DHP_Prefabs/DHP_PRE_Pink_cupcake_1024.prefab",
         "Complete_Home_Interior_Pack/NEKOBOLT_Demo_Packs/Dessert_Heaven_Pack_DEMO/DHP_Prefabs/DHP_PRE_Rainbow_cupcake_1024.prefab"
     ],
+    "cupboard": [
+        "AK Studio Art/Business Office/Prefabs/Office/Cupboard.prefab"
+    ],
     "curtains": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Decor/PRE_DEC_Curtains/PRE_DEC_Curtains_01/PRE_DEC_Curtains_01_01_01_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Decor/PRE_DEC_Curtains/PRE_DEC_Curtains_01/PRE_DEC_Curtains_01_01_01_02.prefab",
@@ -698,7 +701,8 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_CPU_tables/PRE_FUR_CPU_table_01_02.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_CPU_tables/PRE_FUR_CPU_table_01_03.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_CPU_tables/PRE_FUR_CPU_table_01_04.prefab",
-        "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_CPU_tables/PRE_FUR_CPU_table_01_05.prefab"
+        "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_CPU_tables/PRE_FUR_CPU_table_01_05.prefab",
+        "AK Studio Art/Business Office/Prefabs/Office/Desk 1.prefab"
     ],
     "diningchair": [
         "Furnitures/Chairs/Chair1.prefab",
@@ -1177,7 +1181,7 @@
         "Complete_Home_Interior_Pack/NEKOBOLT_Demo_Packs/Farmers_Market_Gourmet_Pack_DEMO/FMGP_prefabs/FMGP_PRE_Pear_1024.prefab"
     ],
     "pen": [
-        "ModernHouseInteriorProps/Prefabs/Books/mH_BookSet04_Pen.prefab"
+        "AK Studio Art/Business Office/Prefabs/Office/Pen.prefab"
     ],
     "perfume": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Perfume_01.prefab"
@@ -1260,7 +1264,8 @@
     ],
     "printer": [
         "Electronics/Printers/Printer1.prefab",
-        "Electronics/Printers/Printer2.prefab"
+        "Electronics/Printers/Printer2.prefab",
+        "AK Studio Art/Business Office/Prefabs/Laserjet Print.prefab"
     ],
     "projector": [
         "Decos/Ceiling/Projector.prefab"

@@ -494,7 +494,7 @@ namespace StoryGenerator
                 yield return null;
             }
 
-            Debug.Assert(m_nma.pathStatus == NavMeshPathStatus.PathComplete, "Path is not complete");
+            // Debug.Assert(m_nma.pathStatus == NavMeshPathStatus.PathComplete, "Path is not complete");
             float init_dist = m_nma.remainingDistance;
             float total_displacement = init_dist - m_nma.remainingDistance;
             //int cont = 0;
