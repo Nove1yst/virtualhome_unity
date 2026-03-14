@@ -3596,6 +3596,16 @@ namespace StoryGenerator.Utilities
 
             if (nma == null)
                 return result;
+
+            // Determine the room bounds of the target object so we can reject
+            // candidate positions that land in an adjacent room.
+            Bounds? roomBounds = null;
+            Transform roomTransform = GameObjectUtils.GetRoomTransform(go.transform);
+            if (roomTransform != null)
+            {
+                roomBounds = GameObjectUtils.GetRoomBounds(roomTransform.gameObject);
+            }
+
             rMax += rStep / 2.0f;
             for (int i = 0; i < angles; i++)
             {
@@ -3606,28 +3616,17 @@ namespace StoryGenerator.Utilities
                     float x = r * Mathf.Cos(phi);
                     float z = r * Mathf.Sin(phi);
                     Vector3 center = initPos + new Vector3(x, 0, z);
+
+                    // Skip positions that fall outside the target object's room
+                    if (roomBounds.HasValue && !roomBounds.Value.Contains(center))
+                        continue;
+
                     Vector3 cStart = new Vector3(center.x, nma.radius + ObstructionHeight, center.z);
                     Vector3 cEnd = new Vector3(center.x, nma.height - nma.radius + ObstructionHeight, center.z);
 
                     // Check for space
-                    //if (go.name.ToLower().Contains("wine_glass"))
-                    //{
-                    //    GameObject capsulegoal = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                    //    capsulegoal.transform.position = (Vector3)center;
-                    //    capsulegoal.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-                    //    capsulegoal.GetComponent<MeshRenderer>().material.color = Color.blue;
-                    //    capsulegoal.GetComponent<CapsuleCollider>().enabled = false;
-                    //}
                     if (!Physics.CheckCapsule(cStart, cEnd, nma.radius * 0.75f))
                     {
-                        //if (go.name.ToLower().Contains("wine_glass"))
-                        //{
-                        //    GameObject capsulegoal = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                        //    capsulegoal.transform.position = (Vector3)center;
-                        //    capsulegoal.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-                        //    capsulegoal.GetComponent<MeshRenderer>().material.color = Color.green;
-                        //    capsulegoal.GetComponent<CapsuleCollider>().enabled = false;
-                        //}
                         if (go == null || ignore_visibility || IsVisibleFromSegment(go, center, 0.2f, 2.5f, 0.2f, true))
                         {
                             result.Add(center);

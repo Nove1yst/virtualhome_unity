@@ -240,7 +240,7 @@ namespace StoryGenerator.Utilities
                 {
                     // this is center ditance form character
                     min_center_distance = 0.0f;
-                    putCenterDistance = 0.7f;
+                    putCenterDistance = 1.5f;
                 }
 
             }
@@ -344,6 +344,32 @@ namespace StoryGenerator.Utilities
                             //     Debug.Log($"[Targeted Log] Point x:{x:F2}, z:{z:F2} is directly OVER the box. src: {srcName}, dest: {goDest.name}. BUT Raycast failed: {hitFailStr}");
                             // }
                         }
+                    }
+                }
+
+                // Fallback: if radial search found nothing, try placing the source
+                // centered directly above the destination. This relaxed check skips
+                // HitFlatSurface (which requires all 4 corners to land on the dest
+                // surface and fails when the source is larger than the dest).
+                if (result.Count == 0)
+                {
+                    float cx = destBounds.center.x;
+                    float cz = destBounds.center.z;
+                    Vector3 fallbackDelta;
+
+                    if (putInside)
+                        fallbackDelta = new Vector3(cx - srcCenter.x, destMax.y - srcBounds.size.y - 0.03f - srcBounds.min.y, cz - srcCenter.z);
+                    else
+                        fallbackDelta = new Vector3(cx - srcCenter.x, destMax.y - srcBounds.min.y, cz - srcCenter.z);
+
+                    if (putInside || ignoreObstacles || !CheckBox(srcBounds, fallbackDelta, 0.01f, goDest))
+                    {
+                        result.Add(srcPos + fallbackDelta);
+                        Debug.Log($"[CalculatePutPositions] Fallback center-above placement used for src: {srcName} on dest: {goDest.name}");
+                    }
+                    else
+                    {
+                        Debug.Log($"[CalculatePutPositions] Fallback center-above also failed CheckBox for src: {srcName} on dest: {goDest.name}");
                     }
                 }
             }

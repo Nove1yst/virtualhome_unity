@@ -1529,6 +1529,12 @@
             ]
         },
         {
+            "className": "Backpack",
+            "prefabs": [
+                "Backpack"
+            ]
+        },
+        {
             "className": "Banana",
             "prefabs": []
         },
@@ -1679,6 +1685,7 @@
         {
             "className": "Book",
             "prefabs": [
+                "Book 1",
                 "Book_1",
                 "Book_2",
                 "Book_3",
@@ -1794,6 +1801,12 @@
             "className": "Bucket",
             "prefabs": [
                 "mH_Bucket01"
+            ]
+        },
+        {
+            "className": "Business_card",
+            "prefabs": [
+                "Business_card"
             ]
         },
         {
@@ -2435,7 +2448,15 @@
                 "PRE_FUR_CPU_table_01_03",
                 "PRE_FUR_CPU_table_01_04",
                 "PRE_FUR_CPU_table_01_05",
-                "Desk 1"
+                "Desk 1",
+                "Desk 3",
+                "Desk 4"
+            ]
+        },
+        {
+            "className": "Diary",
+            "prefabs": [
+                "Diary"
             ]
         },
         {
@@ -2629,6 +2650,12 @@
             ]
         },
         {
+            "className": "Gift_card",
+            "prefabs": [
+                "Gift_card"
+            ]
+        },
+        {
             "className": "Globe",
             "prefabs": [
                 "mH_WorldGlobe01"
@@ -2698,6 +2725,12 @@
                 "PRE_PRO_Coat_hanger_01_02_08",
                 "PRE_PRO_Coat_hanger_01_02_09",
                 "PRE_PRO_Coat_hanger_01_02_10"
+            ]
+        },
+        {
+            "className": "Headset",
+            "prefabs": [
+                "Headset"
             ]
         },
         {
@@ -2825,7 +2858,8 @@
                 "MOD_FUR_Kitchen_counter_corner_01_18",
                 "MOD_FUR_Kitchen_counter_corner_01_19",
                 "MOD_FUR_Kitchen_counter_corner_01_20",
-                "MOD_FUR_Kitchen_counter_corner_01_21"
+                "MOD_FUR_Kitchen_counter_corner_01_21",
+                "Kitchen Counter"
             ]
         },
         {
@@ -2853,7 +2887,8 @@
                 "PRE_FUR_Kitchen_table_01_07",
                 "PRE_FUR_Kitchen_table_02_01",
                 "PRE_FUR_Kitchen_table_02_02",
-                "PRE_FUR_Kitchen_table_02_03"
+                "PRE_FUR_Kitchen_table_02_03",
+                "Dinner Counter"
             ]
         },
         {
@@ -2866,6 +2901,12 @@
             "className": "Lemon",
             "prefabs": [
                 "FMGP_PRE_Lemon_1024"
+            ]
+        },
+        {
+            "className": "Letter",
+            "prefabs": [
+                "Letter"
             ]
         },
         {
@@ -2929,6 +2970,12 @@
             "className": "Medical_file",
             "prefabs": [
                 "Medical_file"
+            ]
+        },
+        {
+            "className": "Medicine_bottle",
+            "prefabs": [
+                "Medicine_bottle"
             ]
         },
         {
@@ -3033,6 +3080,12 @@
                 "Notes_4a",
                 "Notes_4b",
                 "Notes_4c"
+            ]
+        },
+        {
+            "className": "Office_folder",
+            "prefabs": [
+                "Office Folder Horizontal"
             ]
         },
         {
@@ -3250,6 +3303,12 @@
             "className": "Receipt",
             "prefabs": [
                 "Receipt"
+            ]
+        },
+        {
+            "className": "Reception_counter",
+            "prefabs": [
+                "Reception Counter"
             ]
         },
         {
@@ -3487,8 +3546,15 @@
             ]
         },
         {
+            "className": "Sculpture",
+            "prefabs": [
+                "Hand Sculptures"
+            ]
+        },
+        {
             "className": "Shelf",
             "prefabs": [
+                "Shelf 1",
                 "mH_CornerShelf01",
                 "mH_StorageShelf"
             ]
@@ -3894,6 +3960,18 @@
             ]
         },
         {
+            "className": "USB_drive",
+            "prefabs": [
+                "USB_drive"
+            ]
+        },
+        {
+            "className": "Voucher",
+            "prefabs": [
+                "Voucher"
+            ]
+        },
+        {
             "className": "WallPictureFrame",
             "prefabs": [
                 "WallPictureFrame_1",
@@ -4075,7 +4153,8 @@
         {
             "className": "Paper_tray",
             "prefabs": [
-                "Paper_tray_1"
+                "Paper_tray_1",
+                "Paper Tray"
             ]
         },
         {
@@ -4107,7 +4186,8 @@
             "className": "Vase",
             "prefabs": [
                 "mH_Vase_01",
-                "mH_Vase_02"
+                "mH_Vase_02",
+                "Fowler Vase"
             ]
         },
         {
@@ -4139,6 +4219,12 @@
             "className": "Laptop",
             "prefabs": [
                 "laptop"
+            ]
+        },
+        {
+            "className": "Office_tray",
+            "prefabs": [
+                "Office Tray"
             ]
         }
     ]

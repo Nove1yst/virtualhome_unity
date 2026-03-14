@@ -36,6 +36,10 @@
     "armsright": [
         "BODY_PART"
     ],
+    "backpack": [
+        "GRABBABLE",
+        "MOVABLE"
+    ],
     "bag": [
         "GRABBABLE",
         "RECIPIENT",
@@ -156,6 +160,10 @@
         "MOVABLE"
     ],
     "brush": [
+        "GRABBABLE",
+        "MOVABLE"
+    ],
+    "businesscard": [
         "GRABBABLE",
         "MOVABLE"
     ],
@@ -863,6 +871,10 @@
         "CONTAINERS",
         "MOVABLE"
     ],
+    "giftcard": [
+        "GRABBABLE",
+        "MOVABLE"
+    ],
     "glass": [
         "GRABBABLE",
         "RECIPIENT",
@@ -1026,6 +1038,10 @@
     "legsright": [
         "BODY_PART"
     ],
+    "letter": [
+        "GRABBABLE",
+        "MOVABLE"
+    ],
     "light": [
         "HAS_SWITCH",
         "HAS_PLUG"
@@ -1088,6 +1104,10 @@
         "GRABBABLE",
         "MOVABLE"
     ],
+    "meetingtablelarge": [
+        "SURFACES",
+        "MOVABLE"
+    ],
     "microphone": [
         "GRABBABLE",
         "HAS_SWITCH",
@@ -1098,6 +1118,10 @@
         "GRABBABLE",
         "READABLE",
         "HAS_PAPER",
+        "MOVABLE"
+    ],
+    "medicinebottle": [
+        "GRABBABLE",
         "MOVABLE"
     ],
     "microwave": [
@@ -1215,6 +1239,16 @@
         "HAS_PAPER",
         "MOVABLE"
     ],
+    "officefolder": [
+        "GRABBABLE",
+        "MOVABLE"
+    ],
+    "officetray": [
+        "SURFACES",
+        "CONTAINERS",
+        "GRABBABLE",
+        "MOVABLE"
+    ],
     "oil": [
         "GRABBABLE",
         "DRINKABLE",
@@ -1279,6 +1313,10 @@
         "GRABBABLE",
         "HAS_SWITCH",
         "HAS_PLUG",
+        "MOVABLE"
+    ],
+    "phoneprototype": [
+        "GRABBABLE",
         "MOVABLE"
     ],
     "pianobench": [
@@ -1357,6 +1395,10 @@
         "HAS_PAPER",
         "MOVABLE"
     ],
+    "receptioncounter": [
+        "SURFACES",
+        "MOVABLE"
+    ],
     "remotecontrol": [
         "GRABBABLE",
         "HAS_SWITCH",
@@ -1381,6 +1423,9 @@
     ],
     "scrabble": [
         "GRABBABLE",
+        "MOVABLE"
+    ],
+    "sculpture": [
         "MOVABLE"
     ],
     "shampoo": [
@@ -1481,6 +1526,10 @@
         "SURFACES",
         "GRABBABLE",
         "COVER_OBJECT",
+        "MOVABLE"
+    ],
+    "tablet": [
+        "GRABBABLE",
         "MOVABLE"
     ],
     "tape": [
@@ -1585,6 +1634,10 @@
         "GRABBABLE",
         "MOVABLE"
     ],
+    "usbdrive": [
+        "GRABBABLE",
+        "MOVABLE"
+    ],
     "vacuumcleaner": [
         "GRABBABLE",
         "HAS_SWITCH",
@@ -1601,6 +1654,10 @@
         "GRABBABLE",
         "HAS_SWITCH",
         "HAS_PLUG",
+        "MOVABLE"
+    ],
+    "voucher": [
+        "GRABBABLE",
         "MOVABLE"
     ],
     "wall": [],

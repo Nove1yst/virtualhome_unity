@@ -16,6 +16,9 @@
     "apple": [
         "Complete_Home_Interior_Pack/NEKOBOLT_Demo_Packs/Farmers_Market_Gourmet_Pack_DEMO/FMGP_prefabs/FMGP_PRE_Apple_1024.prefab"
     ],
+    "backpack": [
+        "ExtraObjects/Backpack/Backpack.prefab"
+    ],
     "balance_ball": [
         "ModernHouseInteriorProps/Prefabs/Fitness/mH_BalanceBall.prefab"
     ],
@@ -161,6 +164,7 @@
         "ExtraObjects/Boardgame_2/Boardgame_2.prefab"
     ],
     "book": [
+        "AK Studio Art/Business Office/Prefabs/Office/Books/Book 1.prefab",
         "Props/Books/Book_1.prefab",
         "Props/Books/Book_2.prefab",
         "Props/Books/Book_3.prefab",
@@ -281,6 +285,9 @@
     "bucket": [
         "ModernHouseInteriorProps/Prefabs/Misc/mH_Bucket01.prefab"
     ],
+    "business_card": [
+        "ExtraObjects/Business_card/Business_card.prefab"
+    ],
     "cabinet": [
         "Furnitures/Cabinets/Cabinet_1.prefab",
         "ModernHouseInteriorProps/Prefabs/Cabinets/mH_FloorCabinet01.prefab"
@@ -335,9 +342,7 @@
         "ExtraObjects/Cellphone_6/Cellphone_6b.prefab",
         "ExtraObjects/Cellphone_7/Cellphone_7.prefab",
         "ExtraObjects/Cellphone_7/Cellphone_7a.prefab",
-        "ExtraObjects/Cellphone_7/Cellphone_7b.prefab",
-        "Props/Cellphones/Cellphone_11.prefab",
-        "Props/Cellphones/Cellphone_12.prefab"
+        "ExtraObjects/Cellphone_7/Cellphone_7b.prefab"
     ],
     "cereal": [
         "Complete_Home_Interior_Pack/NEKOBOLT_Demo_Packs/Supermarket_Gluttony_Pack_DEMO/SMGP_Prefabs/SMGP_PRE_Cereal_1024.prefab"
@@ -702,7 +707,12 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_CPU_tables/PRE_FUR_CPU_table_01_03.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_CPU_tables/PRE_FUR_CPU_table_01_04.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_CPU_tables/PRE_FUR_CPU_table_01_05.prefab",
-        "AK Studio Art/Business Office/Prefabs/Office/Desk 1.prefab"
+        "AK Studio Art/Business Office/Prefabs/Office/Desk 1.prefab",
+        "AK Studio Art/Business Office/Prefabs/Office/Desk 3.prefab",
+        "AK Studio Art/Business Office/Prefabs/Office/Desk 4.prefab"
+    ],
+    "diary": [
+        "ExtraObjects/Diary/Diary.prefab"
     ],
     "diningchair": [
         "Furnitures/Chairs/Chair1.prefab",
@@ -803,6 +813,9 @@
         "ExtraObjects/Garbage_Can_7/Garbage_can_7.prefab",
         "ExtraObjects/Garbage_Can_8/Garbage_can_8.prefab"
     ],
+    "gift_card": [
+        "ExtraObjects/Gift_card/Gift_card.prefab"
+    ],
     "glasses": [
         "ModernHouseInteriorProps/Prefabs/Misc/mH_PixelSunglasses.prefab",
         "ModernHouseInteriorProps/Prefabs/Misc/mH_Sunglasses.prefab"
@@ -838,6 +851,9 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Coat_hangers/PRE_PRO_Coat_hanger_01_02_08.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Coat_hangers/PRE_PRO_Coat_hanger_01_02_09.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Coat_hangers/PRE_PRO_Coat_hanger_01_02_10.prefab"
+    ],
+    "headset": [
+        "ExtraObjects/Headset/Headset.prefab"
     ],
     "home": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Homes/PRE_HOM_Home_01.prefab",
@@ -954,7 +970,8 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_counters/PRE_FUR_Kitchen_counter_03/PRE_FUR_Kitchen_counter_03_18.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_counters/PRE_FUR_Kitchen_counter_03/PRE_FUR_Kitchen_counter_03_19.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_counters/PRE_FUR_Kitchen_counter_03/PRE_FUR_Kitchen_counter_03_20.prefab",
-        "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_counters/PRE_FUR_Kitchen_counter_03/PRE_FUR_Kitchen_counter_03_21.prefab"
+        "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_counters/PRE_FUR_Kitchen_counter_03/PRE_FUR_Kitchen_counter_03_21.prefab",
+        "AK Studio Art/Business Office/Prefabs/Kitchen/Kitchen Counter.prefab"
     ],
     "kitchen_table": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_tables/PRE_FUR_Kitchen_table_01_01.prefab",
@@ -966,7 +983,8 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_tables/PRE_FUR_Kitchen_table_01_07.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_tables/PRE_FUR_Kitchen_table_02_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_tables/PRE_FUR_Kitchen_table_02_02.prefab",
-        "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_tables/PRE_FUR_Kitchen_table_02_03.prefab"
+        "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_Kitchen_tables/PRE_FUR_Kitchen_table_02_03.prefab",
+        "AK Studio Art/Business Office/Prefabs/Kitchen/Dinner Counter.prefab"
     ],
     "laptop": [
         "ExtraObjects/Laptop/laptop.prefab"
@@ -976,6 +994,9 @@
     ],
     "lemon": [
         "Complete_Home_Interior_Pack/NEKOBOLT_Demo_Packs/Farmers_Market_Gourmet_Pack_DEMO/FMGP_prefabs/FMGP_PRE_Lemon_1024.prefab"
+    ],
+    "letter": [
+        "ExtraObjects/Letter/Letter.prefab"
     ],
     "lightswitch": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Electronics/PRE_ELE_Light_switches/PRE_ELE_Light_switch_01.prefab",
@@ -1039,6 +1060,12 @@
     ],
     "medical_file": [
         "ExtraObjects/Medical_file/Medical_file.prefab"
+    ],
+    "medicine_bottle": [
+        "ExtraObjects/Medicine_bottle/Medicine_bottle.prefab"
+    ],
+    "meeting_table_large": [
+        "AK Studio Art/Business Office/Prefabs/Office/Meeting Table Large.prefab"
     ],
     "microwave": [
         "Appliances/Microwaves/Microwave_1.prefab",
@@ -1129,6 +1156,9 @@
         "ExtraObjects/Notes_4/Notes_4b.prefab",
         "ExtraObjects/Notes_4/Notes_4c.prefab"
     ],
+    "office_folder": [
+        "AK Studio Art/Business Office/Prefabs/Office/Office Folder Horizontal.prefab"
+    ],
     "orange": [
         "Complete_Home_Interior_Pack/NEKOBOLT_Demo_Packs/Farmers_Market_Gourmet_Pack_DEMO/FMGP_prefabs/FMGP_PRE_Orange_1024.prefab"
     ],
@@ -1166,7 +1196,8 @@
         "ExtraObjects/Paper_2/Paper_2a.prefab"
     ],
     "paper_tray": [
-        "ExtraObjects/Paper_tray_1/Paper_tray_1.prefab"
+        "ExtraObjects/Paper_tray_1/Paper_tray_1.prefab",
+        "AK Studio Art/Business Office/Prefabs/Office/Paper Tray.prefab"
     ],
     "papertowel": [
         "ModernHouseInteriorProps/Prefabs/Kitchen/mH_PaperTowel.prefab"
@@ -1191,6 +1222,9 @@
     ],
     "personal_journal_religious": [
         "ExtraObjects/Personal_journal_religious/Personal_journal_religious.prefab"
+    ],
+    "phone_prototype": [
+        "Props/Cellphones/Cellphone_11.prefab"
     ],
     "photoframe": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Photo_frame_01.prefab"
@@ -1294,6 +1328,9 @@
     ],
     "receipt": [
         "ExtraObjects/Receipt/Receipt.prefab"
+    ],
+    "reception_counter": [
+        "AK Studio Art/Business Office/Prefabs/Office/Reception Counter.prefab"
     ],
     "remote_control": [
         "ExtraObjects/Remote_control_1/Remote_control_1.prefab",
@@ -1405,6 +1442,9 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Decor/PRE_DEC_Rugs/PRE_DEC_Rug_03/PRE_DEC_Rug_03_06_04.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Decor/PRE_DEC_Rugs/PRE_DEC_Rug_03/PRE_DEC_Rug_03_06_05.prefab"
     ],
+    "sculpture": [
+        "AK Studio Art/Business Office/Prefabs/Decoration Set/Hand Sculptures.prefab"
+    ],
     "salad": [
         "ExtraObjects/Salad_1/Salad_1.prefab"
     ],
@@ -1412,6 +1452,7 @@
         "Complete_Home_Interior_Pack/NEKOBOLT_Demo_Packs/Supermarket_Gluttony_Pack_DEMO/SMGP_Prefabs/SMGP_PRE_Salmon_1024.prefab"
     ],
     "shelf": [
+        "AK Studio Art/Business Office/Prefabs/Office/Shelf 1.prefab",
         "ModernHouseInteriorProps/Prefabs/Shelves/mH_CornerShelf01.prefab",
         "ModernHouseInteriorProps/Prefabs/Shelves/mH_StorageShelf.prefab"
     ],
@@ -1584,6 +1625,9 @@
     "sundae": [
         "Complete_Home_Interior_Pack/NEKOBOLT_Demo_Packs/Dessert_Heaven_Pack_DEMO/DHP_Prefabs/DHP_PRE_Sundae_1024.prefab"
     ],
+    "tablet": [
+        "Props/Cellphones/Cellphone_12.prefab"
+    ],
     "table_lamp": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Lamps/PRE_LAM_Table_lamps/PRE_LAM_Table_lamp_02_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Lamps/PRE_LAM_Table_lamps/PRE_LAM_Table_lamp_02_02.prefab",
@@ -1665,6 +1709,9 @@
         "ExtraObjects/Toy_9/Toy_9.prefab",
         "ExtraObjects/Toy_10/Toy_10.prefab"
     ],
+    "office_tray": [
+        "AK Studio Art/Business Office/Prefabs/Office/Office Tray.prefab"
+    ],
     "tv": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Electronics/PRE_ELE_TVs/PRE_ELE_TV_01.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Electronics/PRE_ELE_TVs/PRE_ELE_TV_02.prefab",
@@ -1692,9 +1739,16 @@
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_TV_stands/PRE_FUR_TV_stand_01_13.prefab",
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Furniture/PRE_FUR_TV_stands/PRE_FUR_TV_stand_01_14.prefab"
     ],
+    "usb_drive": [
+        "ExtraObjects/USB_drive/USB_drive.prefab"
+    ],
     "vase": [
         "ModernHouseInteriorProps/Prefabs/Decoration/mH_Vase_01.prefab",
-        "ModernHouseInteriorProps/Prefabs/Decoration/mH_Vase_02.prefab"
+        "ModernHouseInteriorProps/Prefabs/Decoration/mH_Vase_02.prefab",
+        "AK Studio Art/Business Office/Prefabs/Decoration Set/Fowler Vase.prefab"
+    ],
+    "voucher": [
+        "ExtraObjects/Voucher/Voucher.prefab"
     ],
     "wall_lamp": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Lamps/PRE_LAM_Wall_lamps/PRE_LAM_Wall_lamp_01_01.prefab",

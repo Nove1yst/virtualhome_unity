@@ -718,6 +718,32 @@ namespace StoryGenerator
 
                 }
 
+                else if (networkRequest.action == "deactivate_character")
+                {
+                    IList<int> indices = networkRequest.intParams;
+                    if (indices == null || indices.Count == 0)
+                    {
+                        response.success = false;
+                        response.message = "Missing character index";
+                    }
+                    else
+                    {
+                        int char_index = indices[0];
+                        if (char_index < 0 || char_index >= characters.Count)
+                        {
+                            response.success = false;
+                            response.message = $"Invalid character index {char_index}, only {characters.Count} characters exist";
+                        }
+                        else
+                        {
+                            characters[char_index].gameObject.SetActive(false);
+                            response.success = true;
+                            response.message = $"Character {char_index} deactivated";
+                            Debug.Log($"Character {char_index} deactivated");
+                        }
+                    }
+                }
+
                 else if (networkRequest.action == "render_script") 
                 {
                     if (numCharacters == 0)
