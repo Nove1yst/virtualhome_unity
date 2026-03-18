@@ -3627,10 +3627,17 @@ namespace StoryGenerator.Utilities
                     // Check for space
                     if (!Physics.CheckCapsule(cStart, cEnd, nma.radius * 0.75f))
                     {
-                        if (go == null || ignore_visibility || IsVisibleFromSegment(go, center, 0.2f, 2.5f, 0.2f, true))
+                        // Verify that the position is actually on the NavMesh
+                        NavMeshHit navHit;
+                        if (NavMesh.SamplePosition(center, out navHit, 1.5f, NavMesh.AllAreas))
                         {
-                            result.Add(center);
-                            break; // for each angle, take the closest radius
+                            Vector3 snappedPos = navHit.position;
+                            // Check visibility from the snapped NavMesh position
+                            if (go == null || ignore_visibility || IsVisibleFromSegment(go, snappedPos, 0.2f, 2.5f, 0.2f, true))
+                            {
+                                result.Add(snappedPos);
+                                break; // for each angle, take the closest radius
+                            }
                         }
                     }
                     

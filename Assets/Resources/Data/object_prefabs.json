@@ -474,7 +474,8 @@
         "Furnitures/CoffeeTables/CoffeeTable_2.prefab",
         "Furnitures/CoffeeTables/CoffeeTable_3.prefab",
         "Furnitures/CoffeeTables/CoffeeTable_4.prefab",
-        "Furnitures/CoffeeTables/CoffeeTable_5.prefab"
+        "Furnitures/CoffeeTables/CoffeeTable_5.prefab",
+        "AK Studio Art/Office/Business Office/Prefabs/Sofa Set/Table 2.prefab"
     ],
     "coffeemaker": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Appliances/PRE_APP_Coffeemaker/PRE_APP_Coffeemaker_01.prefab",
@@ -782,6 +783,9 @@
     "email": [
         "ExtraObjects/Email/Email.prefab"
     ],
+    "envelope": [
+        "ExtraObjects/Envelope/Envelope.prefab"
+    ],
     "facecream": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Face_cream_01.prefab"
     ],
@@ -875,6 +879,9 @@
     ],
     "kettle": [
         "ModernHouseInteriorProps/Prefabs/Kitchen/mH_Kettle.prefab"
+    ],
+    "key": [
+        "ExtraObjects/Key/Key.prefab"
     ],
     "keyboard": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Electronics/PRE_ELE_Keyboards/PRE_ELE_Keyboard_01.prefab",
@@ -1195,12 +1202,21 @@
         "ExtraObjects/Paper_2/Paper_2.prefab",
         "ExtraObjects/Paper_2/Paper_2a.prefab"
     ],
+    "paper_folder": [
+        "ExtraObjects/Paper_folder/Paper_folder.prefab"
+    ],
+    "paper_pile": [
+        "ExtraObjects/Paper_pile/Paper_pile.prefab"
+    ],
     "paper_tray": [
         "ExtraObjects/Paper_tray_1/Paper_tray_1.prefab",
         "AK Studio Art/Business Office/Prefabs/Office/Paper Tray.prefab"
     ],
     "papertowel": [
         "ModernHouseInteriorProps/Prefabs/Kitchen/mH_PaperTowel.prefab"
+    ],
+    "pass": [
+        "ExtraObjects/Pass/Pass.prefab"
     ],
     "pc": [
         "Electronics/PC.prefab"
@@ -1819,6 +1835,9 @@
     ],
     "whippedcream": [
         "Complete_Home_Interior_Pack/NEKOBOLT_Demo_Packs/Supermarket_Gluttony_Pack_DEMO/SMGP_Prefabs/SMGP_PRE_Whipped_cream_1024.prefab"
+    ],
+    "whiteboard_eraser": [
+        "AK Studio Art/Business Office/Prefabs/Office/Whiteboard Eraser.prefab"
     ],
     "wine": [
         "Food/Liquid/Wine_1.prefab",

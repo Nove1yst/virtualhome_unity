@@ -2160,7 +2160,8 @@
                 "CoffeeTable_2",
                 "CoffeeTable_3",
                 "CoffeeTable_4",
-                "CoffeeTable_5"
+                "CoffeeTable_5",
+                "Table 2"
             ]
         },
         {
@@ -2582,6 +2583,12 @@
             ]
         },
         {
+            "className": "Envelope",
+            "prefabs": [
+                "Envelope"
+            ]
+        },
+        {
             "className": "FaceCream",
             "prefabs": [
                 "PRE_PRO_Face_cream_01"
@@ -2751,6 +2758,12 @@
             "className": "Journal",
             "prefabs": [
                 "mH_JournalBook"
+            ]
+        },
+        {
+            "className": "Key",
+            "prefabs": [
+                "Key"
             ]
         },
         {
@@ -3099,6 +3112,24 @@
             "prefabs": [
                 "PRE_DEC_Orchid_01",
                 "PRE_DEC_Orchid_02"
+            ]
+        },
+        {
+            "className": "Paper_folder",
+            "prefabs": [
+                "Paper_folder"
+            ]
+        },
+        {
+            "className": "Paper_pile",
+            "prefabs": [
+                "Paper_pile"
+            ]
+        },
+        {
+            "className": "Pass",
+            "prefabs": [
+                "Pass"
             ]
         },
         {
@@ -4040,6 +4071,12 @@
             ]
         },
         {
+            "className": "Whiteboard_eraser",
+            "prefabs": [
+                "Whiteboard Eraser"
+            ]
+        },
+        {
             "className": "WineGlass",
             "prefabs": [
                 "WineGlass_1",
@@ -4080,13 +4117,6 @@
             "prefabs": [
                 "PRE_ELE_CPU_screen_01",
                 "PRE_ELE_CPU_screen_02"
-            ]
-        },
-        {
-            "className": "CoatRack",
-            "prefabs": [
-                "mH_CoatRack_01",
-                "mH_CoatRack_02"
             ]
         },
         {
@@ -4173,13 +4203,6 @@
                 "PRE_FUR_Shelf_08",
                 "PRE_FUR_Shelf_09",
                 "PRE_FUR_Shelf_10"
-            ]
-        },
-        {
-            "className": "Standing_mirror",
-            "prefabs": [
-                "mH_StandingMirror",
-                "mH_StandingMirror_Small"
             ]
         },
         {

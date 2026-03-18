@@ -253,6 +253,13 @@ namespace StoryGenerator.Utilities
             if (srcBounds.extents == Vector3.zero || destBounds.extents == Vector3.zero)
                 return result;
 
+            // Find the surface that goDest is resting on, so we can also exclude
+            // it from collision checks. Without this, placing an object on a small
+            // item that sits inside a larger container (e.g. cellphone on voucher
+            // on reception counter) always fails because the container's collider
+            // overlaps the placement position.
+            GameObject destSupport = FindSupportingSurface(goDest);
+
             Vector3 destMin = destBounds.min;
             Vector3 destMax = destBounds.max;
             Vector3 srcCenter = srcBounds.center;
@@ -330,12 +337,12 @@ namespace StoryGenerator.Utilities
                             float yDelta = hity - (srcBounds.min.y + srcDelta.y);
                             Vector3 delta = srcDelta + new Vector3(0, yDelta, 0);
 
-                            if (putInside || ignoreObstacles || !CheckBox(srcBounds, delta, 0.01f, goDest)) {
+                            if (ignoreObstacles || !CheckBox(srcBounds, delta, 0.01f, goDest, destSupport)) {
                                 result.Add(srcPos + delta);
                             } else {
-                                failBoxReason = "Obstacle detected in CheckBox.";
+                                string cbDetail = CheckBoxDetail(srcBounds, delta, 0.01f, goDest, destSupport);
+                                failBoxReason = $"Obstacle detected in CheckBox: {cbDetail}";
                                 failBoxCount++;
-                                // if (isInsideDestArea) Debug.Log($"[Targeted] Over Box, but Checkbox failed. src: {srcName}, dest: {goDest.name}, dest size: {destBounds.size}");
                             }
                         } else {
                             failHitReason = hitFailStr;
@@ -362,14 +369,15 @@ namespace StoryGenerator.Utilities
                     else
                         fallbackDelta = new Vector3(cx - srcCenter.x, destMax.y - srcBounds.min.y, cz - srcCenter.z);
 
-                    if (putInside || ignoreObstacles || !CheckBox(srcBounds, fallbackDelta, 0.01f, goDest))
+                    if (ignoreObstacles || !CheckBox(srcBounds, fallbackDelta, 0.01f, goDest, destSupport))
                     {
                         result.Add(srcPos + fallbackDelta);
                         Debug.Log($"[CalculatePutPositions] Fallback center-above placement used for src: {srcName} on dest: {goDest.name}");
                     }
                     else
                     {
-                        Debug.Log($"[CalculatePutPositions] Fallback center-above also failed CheckBox for src: {srcName} on dest: {goDest.name}");
+                        string cbDetail = CheckBoxDetail(srcBounds, fallbackDelta, 0.01f, goDest, destSupport);
+                        Debug.Log($"[CalculatePutPositions] Fallback center-above also failed CheckBox for src: {srcName} on dest: {goDest.name}. Interfering objects: {cbDetail}");
                     }
                 }
             }
@@ -398,7 +406,7 @@ namespace StoryGenerator.Utilities
                     float yDelta = hity - (srcBounds.min.y + srcDelta.y);
                     Vector3 delta = srcDelta + new Vector3(0, yDelta, 0);
 
-                    if (putInside || ignoreObstacles || !CheckBox(srcBounds, delta, 0.01f, goDest))
+                    if (ignoreObstacles || !CheckBox(srcBounds, delta, 0.01f, goDest, destSupport))
                     {
                         result.Add(srcPos + delta);
                     } else {
@@ -470,13 +478,74 @@ namespace StoryGenerator.Utilities
         // Returns true if box defined by bounds translated by delta and up*upDelta collides with some object
         public static bool CheckBox(Bounds bounds, Vector3 delta, float upDelta, GameObject exception)
         {
+            return CheckBox(bounds, delta, upDelta, exception, null);
+        }
+
+        public static bool CheckBox(Bounds bounds, Vector3 delta, float upDelta, GameObject exception, GameObject exception2)
+        {
             Collider[] colliders = Physics.OverlapBox(bounds.center + delta + upDelta * Vector3.up, bounds.extents);
 
             foreach (Collider co in colliders) {
-                if (!GameObjectUtils.IsInPath(exception, co.transform))
-                    return true;
+                if (GameObjectUtils.IsInPath(exception, co.transform))
+                    continue;
+                if (exception2 != null && GameObjectUtils.IsInPath(exception2, co.transform))
+                    continue;
+                return true;
             }
             return false;
+        }
+
+        // Diagnostic version: returns a string listing all colliders that block placement
+        public static string CheckBoxDetail(Bounds bounds, Vector3 delta, float upDelta, GameObject exception)
+        {
+            return CheckBoxDetail(bounds, delta, upDelta, exception, null);
+        }
+
+        public static string CheckBoxDetail(Bounds bounds, Vector3 delta, float upDelta, GameObject exception, GameObject exception2)
+        {
+            Vector3 center = bounds.center + delta + upDelta * Vector3.up;
+            Collider[] colliders = Physics.OverlapBox(center, bounds.extents);
+            var blocking = new System.Collections.Generic.List<string>();
+
+            foreach (Collider co in colliders) {
+                if (GameObjectUtils.IsInPath(exception, co.transform))
+                    continue;
+                if (exception2 != null && GameObjectUtils.IsInPath(exception2, co.transform))
+                    continue;
+                Bounds coBounds = co.bounds;
+                blocking.Add($"{co.transform.name} (pos={co.transform.position}, bounds_center={coBounds.center}, bounds_size={coBounds.size})");
+            }
+
+            if (blocking.Count == 0)
+                return "(none)";
+
+            string header = $"CheckBox center={center}, half_extents={bounds.extents}, exception={exception.name}";
+            if (exception2 != null) header += $", exception2={exception2.name}";
+            return header + " | Blocking: [" + string.Join("; ", blocking.ToArray()) + "]";
+        }
+
+        // Find the surface that an object is resting on by raycasting downward
+        public static GameObject FindSupportingSurface(GameObject obj)
+        {
+            Bounds objBounds = GetBounds(obj);
+            Vector3 rayOrigin = new Vector3(objBounds.center.x, objBounds.min.y + 0.01f, objBounds.center.z);
+
+            RaycastHit hit;
+            if (Physics.Raycast(rayOrigin, Vector3.down, out hit, 2.0f))
+            {
+                // Walk up to find the root-level furniture object (skip sub-colliders)
+                Transform t = hit.transform;
+                while (t.parent != null && !t.parent.CompareTag(Tags.TYPE_ROOM) && t.parent.parent != null)
+                {
+                    t = t.parent;
+                }
+                if (t.gameObject != obj)
+                {
+                    Debug.Log($"[FindSupportingSurface] {obj.name} is supported by {t.gameObject.name}");
+                    return t.gameObject;
+                }
+            }
+            return null;
         }
 
         public static Bounds GetRoomBounds(GameObject room)

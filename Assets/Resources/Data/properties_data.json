@@ -988,7 +988,7 @@
         "HAS_PLUG",
         "MOVABLE"
     ],
-    "keys": [
+    "key": [
         "GRABBABLE",
         "MOVABLE"
     ],
@@ -1288,12 +1288,27 @@
         "HAS_PAPER",
         "MOVABLE"
     ],
+    "paperfolder": [
+        "GRABBABLE",
+        "READABLE",
+        "HAS_PAPER",
+        "MOVABLE"
+    ],
+    "paperpile": [
+        "GRABBABLE",
+        "HAS_PAPER",
+        "MOVABLE"
+    ],
     "papertowel": [
         "GRABBABLE",
         "HANGABLE",
         "CUTTABLE",
         "COVER_OBJECT",
         "HAS_PAPER",
+        "MOVABLE"
+    ],
+    "pass": [
+        "GRABBABLE",
         "MOVABLE"
     ],
     "pasta": [
@@ -1683,6 +1698,10 @@
         "GRABBABLE",
         "RECIPIENT",
         "POURABLE",
+        "MOVABLE"
+    ],
+    "whiteboarderaser": [
+        "GRABBABLE",
         "MOVABLE"
     ],
     "window": [

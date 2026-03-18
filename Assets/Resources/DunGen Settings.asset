@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DunGen Settings
   m_EditorClassIdentifier: 
   BroadphaseSettings:
-    rid: 6769793531461238784
+    rid: 5473945394193104896
   BoundsCalculationsIgnoreSprites: 0
   RecalculateTileBoundsOnSave: 1
   EnableTilePooling: 0
@@ -26,11 +26,11 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6769793531461238784
+    - rid: 5473945394193104896
       type: {class: SpatialHashBroadphaseSettings, ns: DunGen.Collision, asm: DunGen}
       data:
         CellSize: 40
---- !u!114 &8488495087812422686
+--- !u!114 &4877246355886383187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
