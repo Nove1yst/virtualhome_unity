@@ -1958,6 +1958,12 @@
             ]
         },
         {
+            "className": "Fossil",
+            "prefabs": [
+                "Skeleton Trex"
+            ]
+        },
+        {
             "className": "Cabinet",
             "prefabs": [
                 "Cabinet_1",

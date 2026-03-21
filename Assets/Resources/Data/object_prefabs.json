@@ -357,7 +357,8 @@
         "Furnitures/Chairs/Chair6.prefab",
         "Furnitures/Chairs/Chair7.prefab",
         "Furnitures/Chairs/Chair8.prefab",
-        "Furnitures/Chairs/Chair9.prefab"
+        "Furnitures/Chairs/Chair9.prefab",
+        "Restaurant Interior/Prefabs/Chair 3.prefab"
     ],
     "chefknife": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Knives/PRE_PRO_Knife_01.prefab",
@@ -1510,6 +1511,9 @@
     "sink": [
         "Bathroom/ToWall/Sinks/Sink1.prefab",
         "Bathroom/ToWall/Sinks/Sink2.prefab"
+    ],
+    "fossil": [
+        "AK Studio Art/Art Gallery Museum VR/Prefabs/Skeleton Trex.prefab"
     ],
     "slippers": [
         "Complete_Home_Interior_Pack/CHIP_Prefabs/PRE_Props/PRE_PRO_Slippers/PRE_PRO_Slippers_01_01.prefab",

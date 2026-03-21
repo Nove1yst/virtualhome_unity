@@ -113,20 +113,6 @@ namespace StoryGenerator
 
             List<string> list_assets = dataProviders.AssetsProvider.GetAssetsPaths();
 
-            // Check all the assets exist
-            //foreach (string asset_name in list_assets)
-            //{
-            //    if (asset_name != null)
-            //    {
-            //        GameObject loadedObj = Resources.Load(ScriptUtils.TransformResourceFileName(asset_name)) as GameObject;
-            //        if (loadedObj == null)
-            //        {
-            //            Debug.Log(asset_name);
-            //            Debug.Log(loadedObj);
-            //        }
-            //    }
-            //}
-
             if (transform.gameObject.name.Contains("Home_Procedural_Generation") || !transform.gameObject.name.Contains("Home"))
             {
                 if (commServer == null)
@@ -146,11 +132,6 @@ namespace StoryGenerator
                 // LightingSetup();
                 StartCoroutine(ProcessNetworkRequest());
             }
-            
-            
-
-            
-
         }
         
         private void InitServer()
@@ -1143,7 +1124,7 @@ namespace StoryGenerator
 
                         PreviousEnvironment.IndexMemory = environment;
 
-                        if (environment == 50)
+                        if (environment == 50 || environment == 51 || environment == 52)
                         {
                             buildNavMeshRealtime = false;
                             // Try to find the house transform if not assigned
@@ -1428,12 +1409,11 @@ namespace StoryGenerator
                         int sceneIndex = networkRequest.intParams[0];
                         // Map 50 to scene index 2 as per existing logic
                         if (sceneIndex == 50) sceneIndex = 2;
+                        if (sceneIndex == 51) sceneIndex = 3;
+                        if (sceneIndex == 52) sceneIndex = 4;
                         
                         Debug.Log($"[TestDriver] Force loading scene index: {sceneIndex}");
                         SceneManager.LoadScene(sceneIndex);
-                        
-                        // Wait one frame to ensure load command is registered
-                        // yield return null;
                         
                         response.success = true;
                         response.message = $"Loaded scene {sceneIndex}";

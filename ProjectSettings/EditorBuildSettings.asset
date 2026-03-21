@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/AK Studio Art/Business Office/Scenes/Demo.unity
     guid: 26fb957e3f2c0ed47ac8ebb0ceca2859
+  - enabled: 1
+    path: Assets/Resources/Restaurant Interior/Scene/Demo.unity
+    guid: 78a1829fc3fbad94cb4e340a8429fb53
+  - enabled: 1
+    path: Assets/Resources/AK Studio Art/Art Gallery Museum VR/Scenes/Demo.unity
+    guid: fc690f8bdbf9ef04ea4771f0bbd6a49e
   m_configObjects: {}
